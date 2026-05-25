@@ -37,6 +37,7 @@ Acceptance criteria:
 - UI avoids dense forms where possible.
 - Mobile use is supported.
 - Telegram voice input works for core flows.
+- Webapp UI follows `docs/requirements/webapp-ui-ux-requirements.md`.
 
 ## NFR-005 Latency
 

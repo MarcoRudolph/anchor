@@ -12,11 +12,18 @@ Anchor is a Telegram-first second-brain webapp for older adults with memory diff
 - [Functional Requirements](./functional-requirements.md)
 - [Agent Behavior Requirements](./agent-behavior-requirements.md)
 - [Memory Requirements](./memory-requirements.md)
+- [Diary Requirements](./diary-requirements.md)
 - [Calendar Requirements](./calendar-requirements.md)
+- [Webapp UI/UX Requirements](./webapp-ui-ux-requirements.md)
 - [Privacy and Safety Requirements](./privacy-safety-requirements.md)
 - [Infrastructure Requirements](./infrastructure-requirements.md)
 - [Non-Functional Requirements](./non-functional-requirements.md)
+- [Compliance Requirements](./compliance-requirements.md)
 - [Open Questions](./open-questions.md)
+
+### Monetization
+
+- [Billing and Plans Requirements](./billing-and-plans-requirements.md)
 
 ## Source context
 
@@ -27,6 +34,10 @@ Anchor is a Telegram-first second-brain webapp for older adults with memory diff
 - `docs/contexts/safety/CONTEXT.md`
 - `docs/contexts/usage-limits/CONTEXT.md`
 - `docs/adr/0001-calendar-additions-without-confirmation.md`
+- `docs/adr/0002-hermes-orchestrates-telegram-agent-communication.md`
+- `docs/adr/0003-hostinger-vps-with-hermes-and-supabase-containers.md`
+- `docs/adr/0004-anchor-specific-memory-index-instead-of-ob1-thoughts.md`
+- `docs/adr/0005-stripe-subscription-for-pro-conversation-minutes.md`
 
 ## Documentation rule
 

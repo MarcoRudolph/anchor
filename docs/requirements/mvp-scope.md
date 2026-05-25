@@ -47,15 +47,15 @@
 
 ### Trusted Contacts and safety
 
-- Trusted Contact setup is allowed only as fallback contact/recovery/escalation support.
+- Trusted Contact setup is limited to fallback contact and account recovery support.
 - Trusted Contact has no default diary or calendar access.
-- Non-response Escalation requires explicit User consent if included.
 - Emergency Boundary must be visible in safety-sensitive flows.
 
 ## Out of scope for MVP
 
 - Caregiver role or caregiver dashboard.
 - Shared family account.
+- Non-response Escalation.
 - Medical advice.
 - Diagnosis, treatment, or clinical assessment.
 - Emergency dispatch or emergency monitoring guarantee.
@@ -86,4 +86,4 @@
 
 ## Scope risk
 
-Trusted Contact escalation is still a product-scope risk. Recovery-only Trusted Contacts are simpler than non-response escalation. If time is tight, keep Trusted Contacts for account recovery first and defer escalation.
+Resolved for MVP: Trusted Contacts are recovery-only. Non-response Escalation is deferred.

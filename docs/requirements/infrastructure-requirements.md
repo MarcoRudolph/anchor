@@ -15,13 +15,18 @@ The webapp must support:
 - Telegram pairing.
 - Google Calendar OAuth.
 - Agent Settings.
-- Trusted Contact setup if included.
+- Trusted Contact setup for recovery.
 - Account recovery flows.
-- Optional diary/memory browsing later.
+
+Diary/memory browsing and editing are outside the MVP webapp scope.
 
 ### INF-002 Agent runtime layer
 
 Anchor must run one logical Anchor Agent per User.
+
+Hermes is the agent runtime orchestrator for Telegram communication. Hermes owns the conversation flow, Good Friend Voice, Small Talk Mode, calendar/diary/memory skills, and agent tool calls.
+
+The webapp/backend must not duplicate agent conversation logic. It provides stable APIs/tools for Hermes to read User Settings, manage Google Connection state, retrieve Calendar Events, create Calendar Additions, store Conversation Transcripts, store Diary Entries, manage Memory Facts and Recall Exclusion, and execute Recovery Flows.
 
 The runtime must support:
 
@@ -49,6 +54,7 @@ Anchor needs durable storage for:
 - Voice transcripts.
 - Diary Entries.
 - Memory Facts.
+- Memory Index Items for full-text and vector recall over canonical source records.
 - Memory correction/update/deletion state.
 - Context Map entities and relationships.
 - Audit events.
@@ -57,6 +63,14 @@ Anchor needs durable storage for:
 ### INF-004 Retrieval layer
 
 Anchor needs retrieval over personal memory.
+
+Supabase/Postgres is the intended MVP persistence and retrieval foundation. Vector search may be implemented inside Supabase/Postgres, but embeddings should support retrieval over canonical source records rather than replace those records.
+
+Anchor uses an Anchor-specific memory index modeled after OpenBrain patterns, not OB1's generic `thoughts` table as the product index. Memory Index Items must include `anchor_user_id`, `source_kind`, `occurred_at`, `recall_excluded_at`, and domain metadata so retrieval can enforce User isolation, timeline recall, Source Evidence links, and Recall Exclusion.
+
+Each Memory Index Item links to exactly one canonical source record through nullable foreign keys such as `conversation_transcript_id`, `diary_entry_id`, `memory_fact_id`, or `calendar_event_id`. `source_kind` names which link is active. The index must not use free-form `source_table`/`source_id` strings for canonical source links.
+
+The database schema must enforce this with a CHECK constraint: exactly one canonical source foreign key is set, and `source_kind` matches that foreign key.
 
 Capabilities:
 
@@ -75,8 +89,9 @@ Anchor needs reliable scheduling for:
 - Evening Daily Check-in.
 - Calendar reminders.
 - Correction Reply Window expiry.
-- Non-response Escalation windows if enabled.
 - Retry of transient Telegram/Google/provider failures.
+
+Future scheduling needs may include Non-response Escalation windows if that feature is later enabled.
 
 ### INF-006 Integration layer
 
@@ -90,6 +105,7 @@ Required integrations:
 
 Potential integrations:
 
+- Zapier as an integration adapter, not as source of truth for Anchor state, permissions, or memory.
 - Text-to-speech if Anchor sends voice messages later.
 - Observability provider.
 - Managed vector database or graph database.
@@ -192,19 +208,22 @@ Best fit:
 
 ## MVP recommendation
 
-Do not make per-user Docker containers a product requirement yet.
+Do not make per-user Docker containers a product requirement for the MVP.
 
 Recommended MVP infrastructure:
 
-- Shared webapp.
-- Shared relational database.
+- Hostinger VPS as the initial deployment host.
+- Hermes Agent running in a Docker container.
+- Supabase running in a separate container.
+- Shared webapp/backend.
+- Shared Supabase/Postgres database.
 - Worker queue for scheduled and asynchronous agent jobs.
 - Per-user agent configuration/state.
 - Centralized retrieval services.
 - Strict application-level authorization and per-user data filtering.
 - Optional isolated worker containers for agent runs if needed.
 
-Treat “one Docker container per User running Hermes Agent” as an architecture hypothesis to validate, not a default requirement.
+Treat “one Docker container per User running Hermes Agent” as a later architecture hypothesis to validate, not an MVP requirement.
 
 ## Provisioning requirement
 
@@ -223,8 +242,9 @@ If per-user containers are later chosen, registration must trigger:
 Future agent runtime package should include:
 
 - Anchor `SOUL.md` generated from agent behavior requirements.
-- Skill for calendar management.
-- Skill for diary/memory management.
+- Small Talk skill for Good Companion Role and Small Talk Mode.
+- Calendar management skill for Calendar Event retrieval, Calendar Additions, and Reminder Pattern behavior.
+- Diary/memory management skill for Conversation Transcripts, Diary Entries, Memory Facts, correction, update, deletion, and Recall Exclusion.
 - Safety and privacy constraints.
 - Tool allowlist.
 - Model/provider configuration.
@@ -233,7 +253,7 @@ Future agent runtime package should include:
 
 Create ADRs only after decisions are made:
 
-- Agent runtime isolation model.
-- Memory storage and retrieval model.
-- Telegram-first interaction model.
+- Anchor-specific memory index has ADR 0004.
+- Hermes as Telegram agent orchestrator has ADR 0002.
+- MVP deployment baseline has ADR 0003.
 - Calendar write without confirmation already has ADR 0001.

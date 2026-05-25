@@ -8,6 +8,26 @@ Calendar owns the language for Google Calendar connection, calendar event retrie
 The User's authorized Google account connection that lets Anchor read or write selected calendar data.
 _Avoid_: Google account, OAuth token
 
+**Google Calendar Scope**:
+The single OAuth scope Anchor requests — `https://www.googleapis.com/auth/calendar.events` — which permits reading and writing Calendar Events but exposes no calendar settings, sharing, or ACLs.
+_Avoid_: Full Calendar scope, readonly scope, drive scope
+
+**Google Connection State**:
+The current health of a Google Connection, one of `connected`, `disconnected_external` (token revoked or expired outside Anchor), or `never_connected`; surfaced in the webapp and respected by the Anchor Agent.
+_Avoid_: OAuth status, token status
+
+**External Revocation**:
+A loss of Anchor's Google access caused outside Anchor — User revoked at myaccount.google.com, 6-month refresh-token expiry, Google security event — detected lazily on the next API call and proactively by a weekly lightweight ping.
+_Avoid_: Logout, disconnection, OAuth failure
+
+**Re-Consent Flow**:
+The repeat OAuth authorization Anchor initiates with `access_type=offline` and `prompt=consent` to obtain a new refresh token after External Revocation; uses the same Google Calendar Scope as the initial connect.
+_Avoid_: Re-login, password reset, token refresh
+
+**Pending Calendar Addition**:
+A Calendar Addition the Anchor Agent intended to write while the Google Connection State was not `connected`; buffered up to 7 days and either flushed on reconnection or dropped with an audit-log entry.
+_Avoid_: Draft event, queued event, pending reminder
+
 **Calendar Event**:
 A dated commitment, appointment, reminder, or scheduled activity from the User's connected calendar.
 _Avoid_: Meeting, task, diary event
@@ -45,6 +65,12 @@ _Avoid_: Arbitrary number input, advanced schedule, cron setting
 - A **Reminder Pattern** controls reminders for Calendar Events.
 - The mobile-first reminder settings include fixed patterns and one fixed-list **Custom Single Reminder Offset**.
 - The **Custom Single Reminder Offset** list should be small and avoid arbitrary numeric input.
+- Anchor requests exactly one Google OAuth scope: the **Google Calendar Scope** (`calendar.events`).
+- A **Google Connection** stores an encrypted refresh token; cleartext tokens are never persisted.
+- **External Revocation** is detected lazily on the next API call and proactively by a weekly lightweight ping.
+- On **External Revocation**, the **Google Connection State** is set to `disconnected_external` and the User is prompted in the webapp and in the Morning Calendar Check-in to run the **Re-Consent Flow**.
+- During `disconnected_external`, Anchor buffers up to 7 days of **Pending Calendar Additions**; older buffered Additions are dropped and logged.
+- The **Re-Consent Flow** uses `access_type=offline` and `prompt=consent` to guarantee a new refresh token.
 
 ## Example dialogue
 

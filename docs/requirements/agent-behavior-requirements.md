@@ -180,6 +180,52 @@ When a User reaches Message Size Limit or Conversation Budget:
 - Explain when they can continue if known.
 - Do not expose provider quota, token, rate-limit, or billing internals.
 
+### ABR-051 Minute-budget exhaustion notice
+
+When the User reaches their **Daily Conversation Minutes** allowance (see BPR-002, BPR-004), the Anchor Agent sends a single Gentle Limit Notice in Good Friend Voice and stops responding until midnight reset.
+
+Requirements:
+- One short message only; never repeated within the same exhausted day.
+- Mention when minutes reset in plain language (e.g., "morgen früh").
+- Do not name Pro, Stripe, prices, tokens, quotas, or rate limits.
+- Do not push an upgrade from chat; the upgrade prompt lives in the webapp (WUX-017).
+- Phrasing follows ABR-050 rules; no clinical, robotic, or scolding tone.
+
+Allowed phrasing:
+
+- "Wir haben heute viel geredet — lass uns morgen weitermachen, ja?"
+- "Ich melde mich morgen früh wieder."
+
+Forbidden phrasing:
+
+- "Your daily token budget is exhausted."
+- "Upgrade to Pro for more minutes."
+- "Rate limit exceeded."
+
+### ABR-013 Inbound before pairing is complete
+
+If a person messages the shared Telegram bot before pairing is complete (see ADR-0007):
+
+- Reply once with a short, friendly discovery message explaining that Anchor must first be connected from the webapp, and how (pairing code).
+- Do not engage in open conversation, perform Event Extraction, or store Source Evidence for an unpaired sender.
+- Rate-limit repeated unpaired inbound to avoid a spam loop; do not escalate.
+
+### ABR-023 Morning Calendar Check-in without a connected calendar
+
+When the Morning Calendar Check-in fires and the User has **never connected** Google Calendar (distinct from a retrieval failure, CAL-002):
+
+- Still send a warm morning check-in in Good Friend Voice without calendar content.
+- Optionally mention once, gently, that connecting a calendar lets Anchor remind about appointments; never nag, never repeat daily.
+- Do not expose OAuth or connection-state jargon.
+
+### ABR-052 Inbound after minute-budget exhaustion
+
+After the single Gentle Limit Notice of ABR-051 has been sent and the User replies again the same day:
+
+- Remain silent for the rest of the day by default; do not re-send the notice on every inbound message.
+- If the User explicitly asks why Anchor is quiet (e.g., "warum redest du nicht mehr?"), reply **once** with a short, non-clinical explanation that you have talked a lot today and will continue after the reset, in plain language — without naming Pro, prices, tokens, quotas, or rate limits (resolves the ABR-051 / BPR-009 / TODO #12 contradiction).
+- This single clarifying reply is exempt from the "one message only" rule of ABR-051 but is itself sent at most once per exhausted day.
+
 ## Safety behavior
 
 ### ABR-060 Emergency Boundary

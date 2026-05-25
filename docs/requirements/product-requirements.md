@@ -46,10 +46,12 @@ The webapp exists for:
 - Telegram pairing.
 - Google Calendar connection.
 - Agent settings.
-- Trusted Contact setup, if included in MVP.
-- Optional diary/memory review if included in MVP scope.
+- Trusted Contact setup for account recovery.
+- Assisted recovery flows.
 
-The Telegram Anchor Agent is the primary day-to-day interaction channel.
+The MVP webapp does not include diary or memory browsing/editing. The Telegram Anchor Agent is the primary day-to-day interaction channel.
+
+Non-response Escalation is not part of the MVP webapp scope.
 
 ## Success criteria
 

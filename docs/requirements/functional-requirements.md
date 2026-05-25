@@ -226,6 +226,8 @@
 
 ### FR-052 Non-response Escalation
 
+**MVP status:** Deferred.
+
 **Requirement:** Anchor may notify a Verified Trusted Contact after sustained non-response only if explicitly enabled.
 
 **Acceptance criteria:**
@@ -252,3 +254,90 @@
 - Supports short and longer Rolling Usage Windows.
 - When budget is reached, User gets a Gentle Limit Notice.
 - Provider quota or token language is not shown to the User.
+
+## Billing and plan management
+
+### FR-070 Plan-state mirror
+
+**Requirement:** Anchor mirrors Stripe subscription state into `anchor_user_plan` keyed by `anchor_user_id`.
+
+**Acceptance criteria:**
+- Each Anchor Account has exactly one `anchor_user_plan` row.
+- Fields include `plan` (`free`|`pro`), `stripe_customer_id`, `stripe_subscription_id`, `current_period_end`, `cancel_at_period_end`, `payment_failed_at`, `updated_at`.
+- A new Anchor Account is created with `plan=free` without any Stripe interaction.
+- Hermes reads plan state from the Anchor backend only; it never calls Stripe.
+
+**Source ADR:** `docs/adr/0005-stripe-subscription-for-pro-conversation-minutes.md`
+
+### FR-071 Stripe webhook handler
+
+**Requirement:** The webapp accepts and processes Stripe webhooks to keep `anchor_user_plan` consistent.
+
+**Acceptance criteria:**
+- Handles `checkout.session.completed`, `customer.subscription.updated`, `customer.subscription.deleted`, `invoice.payment_failed`, `invoice.payment_succeeded`.
+- Verifies the Stripe signature on every request.
+- Is idempotent against repeated deliveries of the same event id.
+- A periodic reconciliation job reads Stripe and corrects drift in `anchor_user_plan`.
+
+### FR-072 Daily Conversation Minute counter
+
+**Requirement:** Anchor counts active conversation minutes per Anchor Account per User-local day.
+
+**Acceptance criteria:**
+- Active minutes accumulate from agent turn start to agent reply delivery; idle silence is not counted.
+- Proactive Check-in send time is not counted; the User's reply turn is.
+- Recovery and one-way system messages are never counted.
+- The counter resets at the User's local midnight.
+- Counter increments are durable and survive Hermes restarts.
+
+### FR-073 Plan-aware budget enforcement
+
+**Requirement:** When the Daily Conversation Minutes counter reaches the plan's allowance, the Anchor Agent sends a Gentle Limit Notice and stops responding until reset.
+
+**Acceptance criteria:**
+- Free and Pro allowances are read from configuration, not hardcoded into Hermes.
+- The user-facing notice follows ABR-050 and ABR-051; never names tokens, quotas, Stripe, or Pro.
+- If FR-061 (Conversation Budget) and FR-073 (plan budget) both apply, whichever triggers first is reported; the User never sees both notices for the same exhaustion.
+
+### FR-074 Upgrade and manage flow
+
+**Requirement:** The webapp exposes one upgrade flow and one subscription-management flow, both hosted by Stripe.
+
+**Acceptance criteria:**
+- `/account/plan` for Free Users opens Stripe Checkout for a single €10/month Pro price.
+- `/account/plan` for Pro Users opens the Stripe Customer Portal.
+- The webapp never renders a card, CVC, or address form itself.
+- Successful upgrade redirects to `/account/plan?upgraded=1` and the badge flips to Pro after webhook arrival.
+
+### FR-075 Failed payment grace
+
+**Requirement:** On `invoice.payment_failed`, Pro access continues for 24 hours from the failure timestamp.
+
+**Acceptance criteria:**
+- During grace, the webapp shows a single non-modal "update card" banner.
+- If `invoice.payment_succeeded` arrives within grace, the banner clears and Pro continues.
+- If grace expires without success, `plan` flips to Free; no chat-side downgrade message is sent.
+- No webapp-sent dunning emails; Stripe handles email dunning.
+
+## Internationalization
+
+### FR-080 Locale support
+
+**Requirement:** The webapp supports English (`en`) and German (`de`).
+
+**Acceptance criteria:**
+- Every user-facing string in the webapp is read from a locale JSON file (`/locales/en.json`, `/locales/de.json`).
+- No display strings are hardcoded inside components.
+- Both locale files contain the same set of keys; a missing key in either fails CI.
+- Default locale is `de`. Anonymous visitors fall back to `de` unless `Accept-Language` resolves to `en` or `de`.
+- The brand wordmark `anchor` is never placed in a locale file.
+
+### FR-081 User locale preference
+
+**Requirement:** A logged-in User can choose between English and German, and the choice persists.
+
+**Acceptance criteria:**
+- `locale` is a field on the User profile with values `en` or `de`.
+- Agent Settings exposes a single locale toggle.
+- The chosen locale is reflected immediately and used on every subsequent visit and across devices.
+- The User's `locale` is shared with Hermes so that the Anchor Agent's Telegram messages match.

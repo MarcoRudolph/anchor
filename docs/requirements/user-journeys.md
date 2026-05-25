@@ -172,6 +172,69 @@
 - Bulk deletion uses stronger confirmation naming the scope.
 - Trusted Contacts cannot delete User memories.
 
+## UJ-011 User upgrades to Pro
+
+**Trigger:** Free User has exhausted today's Daily Conversation Minutes and opens the webapp.
+
+**Preconditions:** Anchor Account is on Free; User reached the daily minute budget at least once in the previous 7 days.
+
+**Steps:**
+1. Webapp shows the WUX-017 banner: "Heute war's viel — magst du mehr Zeit pro Tag?".
+2. User clicks "Pro ansehen" and lands on `/account/plan`.
+3. User clicks "Auf Pro upgraden".
+4. Webapp redirects to Stripe Checkout in the same tab.
+5. User completes payment on Stripe.
+6. Stripe redirects to `/account/plan?upgraded=1`.
+7. Webapp shows success toast and the plan badge flips to "Pro".
+
+**Data created:** Stripe Customer; Stripe Subscription; `anchor_user_plan` row updated to `plan=pro`.
+
+**Acceptance criteria:**
+- The Anchor Agent never mentions the upgrade in Telegram.
+- Pro minutes are available on the next User Message after webhook arrival.
+- A repeated upgrade click while already Pro is idempotent and shows a neutral "Du bist bereits auf Pro." notice.
+
+## UJ-012 User manages or cancels subscription
+
+**Trigger:** Pro User wants to update card, view invoices, or cancel.
+
+**Preconditions:** Anchor Account is on Pro.
+
+**Steps:**
+1. User opens `/account/plan`.
+2. User clicks "Abo verwalten".
+3. Webapp opens Stripe Customer Portal.
+4. User updates card, downloads invoice, or cancels at period end.
+5. User returns to `/account/plan`.
+6. If cancelled, the page shows "Wird gekündigt am …" until `current_period_end`.
+
+**Data created:** Possibly: updated Stripe payment method; Stripe Subscription with `cancel_at_period_end=true`.
+
+**Acceptance criteria:**
+- The webapp never collects card data itself.
+- Cancellation does not delete diary, memory, calendar, or recovery data.
+- Pro minutes remain available until `current_period_end`.
+
+## UJ-013 Failed Pro renewal
+
+**Trigger:** Stripe sends `invoice.payment_failed` for a Pro subscription.
+
+**Preconditions:** Anchor Account is on Pro.
+
+**Steps:**
+1. Webhook handler stamps `payment_failed_at` on `anchor_user_plan`.
+2. Pro allowance remains for 24 hours from the failure timestamp.
+3. The webapp shows a non-modal banner "Bitte überprüfe deine Zahlung." linking to `/account/plan`.
+4. If the User updates the card and Stripe sends `invoice.payment_succeeded` within grace, the banner disappears and Pro continues.
+5. If grace expires without success, the plan flips to Free. The Anchor Agent's next Gentle Limit Notice will reflect the smaller budget; no separate "downgrade" message is sent.
+
+**Data created:** Updated `anchor_user_plan` row.
+
+**Acceptance criteria:**
+- The webapp does not send its own dunning emails; Stripe handles that.
+- Downgrade is silent in chat; only in-webapp UI reflects it.
+- No diary, memory, calendar, or recovery data is removed.
+
 ## UJ-010 Trusted Contact assists password reset
 
 **Trigger:** Verified Trusted Contact starts recovery.
