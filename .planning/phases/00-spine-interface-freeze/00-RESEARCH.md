@@ -505,27 +505,20 @@ await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: callbackU
 
 **`/gsd-discuss-phase` should confirm A1 (Next 15 vs 16 — the load-bearing one) and A5/A6/A7 (self-hosted Supabase extension + Realtime + Edge-Functions-beta reality on the actual VPS) before the planner writes scaffold + schema tasks. All package versions are registry-verified — no version is a blocker, but A1 is a one-time pinning decision.**
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **Pin Next 16 or hold at Next 15? (A1 — the load-bearing version decision).**
+1. **Pin Next 16 or hold at Next 15? (A1 — the load-bearing version decision).** — **RESOLVED 2026-05-30: Next 16.** User chose Next 16 + ADR-0011 amended; plan 00-02 scaffolds on 16.2.6 (`src/proxy.ts`, next-intl v4, Tailwind v4 CSS-first).
    - What we know: ADRs say "Next.js 15"; registry shows **next 16.2.6 current** (verified 2026-05-30); Next 16 renamed `middleware.ts → proxy.ts` and next-intl is on v4.
-   - What's unclear: whether the project wants to track the latest major (16) or stay on the ADR-stated 15.
-   - Recommendation: **pin Next 16** (15 is a full major behind at greenfield start; the v4 next-intl + `proxy.ts` pattern is documented and verified above). Confirm in discuss-phase; it's the one decision that forks scaffold tasks (middleware filename + a few APIs).
+   - Recommendation (taken): **pin Next 16** — the v4 next-intl + `proxy.ts` pattern is documented and verified above.
 
-2. **pg extension availability on the Hostinger VPS Supabase image (A5/A6).**
+2. **pg extension availability on the Hostinger VPS Supabase image (A5/A6).** — **RESOLVED 2026-05-30: smoke-migration-first.** Plan 00-01 (the FIRST task, `autonomous: false`) runs a `CREATE EXTENSION` + Realtime-publication smoke migration on the real VPS that fails loudly; `uuidv7` 1.2.1 npm is the documented UUIDv7 fallback.
    - What we know: DDL needs `pg_uuidv7`, `pgcrypto`, `pg_cron`, `pg_net`, `vector`.
-   - What's unclear: whether the stock self-host image ships all of them or some need building/installing.
-   - Recommendation: Phase 0 task to stand up the VPS Supabase and run a `CREATE EXTENSION` smoke migration that fails loudly; resolve any missing extension before freezing the schema (`uuidv7` npm is the UUIDv7 fallback).
 
-3. **Hermes deployable scaffolding location.**
+3. **Hermes deployable scaffolding location.** — **RESOLVED: planner's discretion.** Plan 00-06 keeps the Telegram receiver thin (webhook + `/start` parse + edge-fn client + echo); `hermes/` with its own `hermes/tsconfig.json`.
    - What we know: Hermes is a sibling Docker container on the same VPS, calls edge fns over loopback; ADRs don't pin its internal framework.
-   - What's unclear: same repo vs. sibling repo; Node vs. Deno for Hermes.
-   - Recommendation: planner picks; keep the Telegram receiver thin (webhook + `/start` parse + edge-fn client + echo) for Phase 0.
 
-4. **OQ-06 (stale ADR-0006 cross-ref to a non-existent local-first/E2E ADR).**
+4. **OQ-06 (stale ADR-0006 cross-ref to a non-existent local-first/E2E ADR).** — **DEFERRED to Phase 1 (not Phase-0-blocking).** Tracked in PROJECT.md/STATE.md as an open question; magic-link + Supabase Auth works server-side regardless. Confirm before relying on DEC-0006 recovery semantics in Phase 1.
    - What we know: STATE.md + INGEST-CONFLICTS flag ADR-0006 references a missing `0005-local-first...` and an "E2E master key" no ADR defines; current architecture is server-side Supabase.
-   - What's unclear: whether a local-first/E2E ADR is expected or the ref is stale.
-   - Recommendation: **not Phase-0-blocking** (magic-link + Supabase Auth works server-side regardless), but confirm before relying on DEC-0006 recovery semantics in Phase 1. Flag to discuss-phase.
 
 ## Environment Availability
 
