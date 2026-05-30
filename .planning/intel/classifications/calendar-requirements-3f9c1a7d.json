@@ -1,0 +1,28 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/requirements/calendar-requirements.md",
+  "type": "PRD",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Anchor Calendar Requirements",
+  "summary": "Product requirements for Anchor's calendar features: Google Calendar connection, event retrieval, morning check-ins, calendar additions, reminders, and disconnect.",
+  "scope": [
+    "Google Calendar connection",
+    "OAuth token lifecycle",
+    "Calendar event retrieval",
+    "Morning Calendar Check-in",
+    "Calendar Additions",
+    "Calendar Write Acknowledgement",
+    "Reminder Pattern",
+    "Calendar events as memory source",
+    "Timezone handling",
+    "Calendar disconnect",
+    "Telegram",
+    "Good Friend Voice"
+  ],
+  "cross_refs": [
+    "docs/adr/0001-calendar-additions-without-confirmation.md"
+  ],
+  "locked": false,
+  "precedence": null,
+  "notes": "Path is docs/requirements/ and content is structured as numbered requirements (CAL-001 to CAL-010) each with explicit acceptance criteria in user/product language ('A User must be able to...', 'Anchor must...'). No API schemas or endpoint contracts, so SPEC was ruled out. High confidence: path convention plus matching content signals both indicate PRD."
+}

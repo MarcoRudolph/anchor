@@ -1,0 +1,28 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/requirements/user-journeys.md",
+  "type": "PRD",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Anchor User Journeys",
+  "summary": "Thirteen end-to-end Anchor user journeys (onboarding, Telegram/Google pairing, daily check-ins, memory recall/correction/deletion, Pro billing, trusted-contact recovery) with triggers, steps, and acceptance criteria.",
+  "scope": [
+    "Anchor Account",
+    "User onboarding",
+    "Telegram pairing",
+    "Anchor Agent",
+    "Google Calendar Connection",
+    "Calendar Additions",
+    "Morning and Evening Check-ins",
+    "Memory Facts",
+    "memory recall, correction, and deletion",
+    "Diary Entries",
+    "Source Evidence and Recall Exclusion",
+    "Stripe Pro subscription (upgrade, manage, cancel, failed renewal)",
+    "Daily Conversation Minutes",
+    "Trusted Contact password recovery"
+  ],
+  "cross_refs": [],
+  "locked": false,
+  "precedence": null,
+  "notes": "Path docs/requirements/ plus pervasive user-journey structure (UJ-001..UJ-013 with Trigger/Preconditions/Steps/Data created/Acceptance criteria) are strong PRD signals. References WUX-017 banner ID and account routes (/account/plan) are inline identifiers, not document links, so cross_refs is empty. No frontmatter or H1-type field; classified by content. Filename suffix is a stable per-source slug suffix (no sibling collision since 'user-journeys' is unique in tree)."
+}

@@ -1,0 +1,17 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/adr/0010-supabase-edge-functions-as-anchor-hermes-api.md",
+  "type": "ADR",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Supabase Edge Functions as the Anchor↔Hermes API",
+  "summary": "Decision to expose the Anchor backend as a single Supabase Edge Functions (Deno) API surface consumed identically by the webapp and the Hermes orchestrator over loopback.",
+  "scope": ["Supabase Edge Functions", "Deno runtime", "Anchor API", "Hermes orchestrator", "OpenAPI contract", "Hostinger VPS deployment", "service-role JWT auth", "x-hermes-secret", "plan-state cache", "Stripe webhook invalidation"],
+  "cross_refs": [
+    "../requirements/infrastructure-requirements.md",
+    "./0002-hermes-orchestrates-telegram-agent-communication.md",
+    "./0003-hostinger-vps-with-hermes-and-supabase-containers.md"
+  ],
+  "locked": true,
+  "precedence": null,
+  "notes": ""
+}

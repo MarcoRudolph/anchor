@@ -1,0 +1,13 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/compliance/subprocessors.md",
+  "type": "DOC",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Anchor Sub-Processor Register",
+  "summary": "GDPR sub-processor register listing each processor, its purpose, data categories, processing location, and AVV/DPA signing status as a launch gate.",
+  "scope": ["compliance", "sub-processors", "GDPR", "AVV/DPA", "Stripe", "Google Calendar", "Telegram", "Anthropic/OpenAI", "Deepgram", "Supabase", "Hostinger", "Vercel", "Resend"],
+  "cross_refs": ["../adr/0021-legal-and-compliance-layer.md", "../requirements/compliance-requirements.md"],
+  "locked": false,
+  "precedence": null,
+  "notes": ""
+}

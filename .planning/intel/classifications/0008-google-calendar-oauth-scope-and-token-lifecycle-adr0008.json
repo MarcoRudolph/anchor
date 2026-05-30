@@ -1,0 +1,27 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/adr/0008-google-calendar-oauth-scope-and-token-lifecycle.md",
+  "type": "ADR",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Google Calendar OAuth scope and token lifecycle",
+  "summary": "Anchor uses the single calendar.events OAuth scope, encrypts refresh tokens at rest, detects external revocation, and buffers calendar additions while disconnected.",
+  "scope": [
+    "Google OAuth",
+    "calendar.events scope",
+    "refresh token storage",
+    "Supabase pgcrypto envelope encryption",
+    "External Revocation detection",
+    "Google Connection State",
+    "Pending Calendar Additions",
+    "Re-Consent Flow",
+    "weekly proactive ping job"
+  ],
+  "cross_refs": [
+    "../contexts/calendar/CONTEXT.md",
+    "../requirements/functional-requirements.md",
+    "./0001-calendar-additions-without-confirmation.md"
+  ],
+  "locked": true,
+  "precedence": null,
+  "notes": "Filename (0008-), path (docs/adr/), frontmatter (ADR-0008), H1, and Status: Accepted all agree -> ADR, locked. Source-path SHA-256 could not be computed (execution tools timed out); filename suffix derived from the globally-unique ADR id 0008, which guarantees no sibling-basename collision."
+}

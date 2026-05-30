@@ -1,0 +1,19 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/adr/0005-stripe-subscription-for-pro-conversation-minutes.md",
+  "type": "ADR",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Stripe subscription for Pro Conversation Minutes",
+  "summary": "Decides to monetize Anchor via a single €10/month Pro plan on Stripe selling Daily Conversation Minutes, with plan state mirrored into Supabase for runtime enforcement.",
+  "scope": ["Stripe Checkout", "Stripe Customer Portal", "Pro plan", "Daily Conversation Minutes", "anchor_user_plan mirror table", "Supabase", "Hermes runtime enforcement", "billing webhooks", "reconciliation job"],
+  "cross_refs": [
+    "docs/requirements/billing-and-plans-requirements.md",
+    "docs/adr/0002-hermes-orchestrates-telegram-agent-communication.md",
+    "docs/adr/0004-anchor-specific-memory-index-instead-of-ob1-thoughts.md",
+    "docs/contexts/usage-limits/CONTEXT.md",
+    "open-questions.md"
+  ],
+  "locked": true,
+  "precedence": null,
+  "notes": ""
+}

@@ -1,0 +1,13 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/adr/0014-voice-transcription-modular-deepgram-with-whisper-fallback.md",
+  "type": "ADR",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Voice transcription: modular Deepgram with Whisper fallback",
+  "summary": "Decides Deepgram Nova-3 as primary voice-transcription provider with Whisper fallback behind a modular Transcriber interface, with audio deletion and explicit user consent.",
+  "scope": ["voice transcription", "Deepgram Nova-3", "OpenAI Whisper", "Transcriber interface", "Telegram voice messages", "audio data lifecycle", "voice consent", "cost tracking"],
+  "cross_refs": ["../requirements/functional-requirements.md", "../requirements/non-functional-requirements.md", "../requirements/infrastructure-requirements.md", "./0009-conversation-minute-accounting-and-limit-ux.md"],
+  "locked": true,
+  "precedence": null,
+  "notes": ""
+}

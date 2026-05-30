@@ -1,0 +1,32 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/requirements/non-functional-requirements.md",
+  "type": "SPEC",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Anchor Non-Functional Requirements",
+  "summary": "Defines 12 numbered non-functional requirements (reliability, privacy, security, latency, cost, observability, etc.) with acceptance criteria and quality targets for the Anchor system.",
+  "scope": [
+    "reliability",
+    "privacy",
+    "security",
+    "accessibility",
+    "latency",
+    "cost control",
+    "observability",
+    "data retention and deletion",
+    "scalability",
+    "portability",
+    "safety communication",
+    "testability",
+    "scheduler",
+    "calendar integration",
+    "LLM/transcription",
+    "agent jobs"
+  ],
+  "cross_refs": [
+    "docs/requirements/webapp-ui-ux-requirements.md"
+  ],
+  "locked": false,
+  "precedence": null,
+  "notes": ""
+}

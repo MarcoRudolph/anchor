@@ -1,0 +1,32 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/requirements/webapp-ui-ux-requirements.md",
+  "type": "PRD",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Anchor Webapp UI/UX Requirements",
+  "summary": "Numbered UI/UX requirements for the Anchor MVP webapp covering setup, settings, recovery, landing page, plan/upgrade, accessibility, and i18n.",
+  "scope": [
+    "MVP webapp",
+    "landing page",
+    "registration and login",
+    "onboarding setup wizard",
+    "Telegram pairing",
+    "Google Connection",
+    "Agent Settings",
+    "Trusted Contact recovery",
+    "Assisted Password Reset",
+    "plan view and Stripe upgrade flow",
+    "accessibility for older adults",
+    "privacy-preserving UI",
+    "internationalization (en/de)",
+    "AEO landing content"
+  ],
+  "cross_refs": [
+    "docs/styleguide.md",
+    "docs/adr/0022-landing-page-trust-signals-and-aeo.md",
+    "~/.claude/rules/DESIGN.md"
+  ],
+  "locked": false,
+  "precedence": null,
+  "notes": ""
+}

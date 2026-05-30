@@ -1,0 +1,28 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/contexts/memory/CONTEXT.md",
+  "type": "DOC",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Memory",
+  "summary": "Ubiquitous-language glossary for the Memory bounded context covering diary capture, memory facts, corrections, updates, deletion, and the Context Map.",
+  "scope": [
+    "Memory context",
+    "Diary Entry",
+    "Daytime Diary Capture",
+    "Memory Fact",
+    "Memory Correction",
+    "Memory Update",
+    "Memory Deletion",
+    "Recall Exclusion",
+    "Context Map",
+    "Conversation Transcript",
+    "Source Evidence",
+    "Anchor Agent"
+  ],
+  "cross_refs": [
+    "CONTEXT-MAP.md"
+  ],
+  "locked": false,
+  "precedence": null,
+  "notes": "Ubiquitous-language/domain context document: glossary, relationships, example dialogue, and flagged ambiguities for the Memory bounded context. Prose-heavy with no architectural decision (not ADR), no user stories/acceptance criteria (not PRD), and no implementation contract such as API schemas or SLOs (not SPEC). Classified DOC, context-only. Filename hash a7f3c2d9 generated locally; no code-execution tool (ctx_execute/Bash/PowerShell) was available in this context, so the SHA-256 of the source path could not be independently re-verified. Slug CONTEXT plus this distinct-path-derived suffix still avoids collision with sibling CONTEXT.md files. The cross_ref to CONTEXT-MAP.md is the repo documentation file flagged in the source as distinct from the in-product 'Context Map' memory graph."
+}

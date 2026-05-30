@@ -1,0 +1,33 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/requirements/open-questions.md",
+  "type": "DOC",
+  "confidence": "medium",
+  "manifest_override": false,
+  "title": "Anchor Open Questions",
+  "summary": "Tracker of resolved decisions and open recommendations gating Anchor's MVP architecture, scope, infrastructure, memory, compliance, and monetization.",
+  "scope": [
+    "authentication and recovery",
+    "MVP product scope",
+    "voice input/output",
+    "Trusted Contact escalation",
+    "Docker isolation",
+    "scale target",
+    "retrieval stack (Supabase/Postgres + vector)",
+    "Hermes Telegram orchestration",
+    "Diary Entries and memory index",
+    "Memory Index Item source linking",
+    "GDPR/legal regime and retention",
+    "monetization minute caps and plans"
+  ],
+  "cross_refs": [
+    "ADR-0006",
+    "NFR-009",
+    "ADR-0003",
+    "ADR-0020",
+    "ADR-0021",
+    "compliance-requirements.md"
+  ],
+  "locked": false,
+  "precedence": null,
+  "notes": "Decision-tracking document (OQ-* items tagged Decision/Recommendation), not a single locked ADR. Many items defer to ADRs (0003/0006/0020/0021); some remain open (BLOCKS SHIP). Classified DOC as it provides context and references rather than authoritative locked decisions or formal requirements. Could compete with PRD/ADR aggregation, resolved to DOC because no formal user stories, acceptance criteria, or single-decision ADR structure is present."
+}

@@ -1,0 +1,38 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/adr/0021-legal-and-compliance-layer.md",
+  "type": "ADR",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Legal and compliance layer",
+  "summary": "Anchor ships the German legal layer (Impressum, Datenschutz, AGB, Widerruf), runs cookie-consent-free, maintains a versioned sub-processor register, and implements GDPR erasure and export as self-service flows.",
+  "scope": [
+    "German legal documents (Impressum, Datenschutzerklaerung, AGB, Widerrufsbelehrung)",
+    "cookie-consent-free posture (strictly necessary cookies only)",
+    "14-day right of withdrawal (Widerrufsrecht)",
+    "sub-processor register / AVV-DPA tracking",
+    "GDPR Art. 17 erasure self-service flow (/account/delete)",
+    "GDPR Art. 20 export self-service flow (/account/export)",
+    "Stripe Checkout immediate-performance acknowledgment",
+    "localized legal routes and persistent footer links"
+  ],
+  "cross_refs": [
+    "../requirements/non-functional-requirements.md",
+    "../requirements/billing-and-plans-requirements.md",
+    "../requirements/webapp-ui-ux-requirements.md",
+    "../requirements/open-questions.md",
+    "../compliance/impressum.md",
+    "../compliance/datenschutz.md",
+    "../compliance/subprocessors.md",
+    "./0005-stripe-subscription-for-pro-conversation-minutes.md",
+    "./0006-passwordless-magic-link-auth-with-trusted-person-recovery.md",
+    "./0011-nextjs-on-vercel-with-tailwind-and-shadcn.md",
+    "./0016-stripe-operations-customer-lifecycle-webhooks-vat.md",
+    "./0017-email-delivery-via-resend.md",
+    "docs/compliance/subprocessors.md",
+    "docs/compliance/impressum.md",
+    "docs/compliance/datenschutz.md"
+  ],
+  "locked": true,
+  "precedence": null,
+  "notes": ""
+}

@@ -1,0 +1,13 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/compliance/impressum.md",
+  "type": "DOC",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Impressum",
+  "summary": "German-language Impressum (§5 DDG legal notice) source-of-truth copy for Anchor's /impressum route, with operator, VAT, insurance, DSA, and dispute-resolution details.",
+  "scope": ["Impressum / legal notice", "§5 DDG provider details", "USt-IdNr (VAT ID)", "professional liability insurance", "EU online dispute resolution (ODR)", "consumer dispute resolution", "Digital Services Act (DSA) contact", "liability disclaimer", "Rudolpho AI / Marco Rudolph operator data"],
+  "cross_refs": ["../adr/0021-legal-and-compliance-layer.md", "../requirements/compliance-requirements.md", "src/app/[locale]/impressum/page.tsx"],
+  "locked": false,
+  "precedence": null,
+  "notes": "Prose/content legal source-of-truth copy (not a decision, requirement set, or technical contract). Frontmatter explicitly frames it as page copy to convert into page.tsx, satisfying CR-001/CR-003 from compliance-requirements; references ADR-0021 but is itself documentation, so DOC. Filename suffix is a stable path-unique token, not a SHA-256 hash, because no code-execution tool was available in this environment to compute one; slug 'impressum' is globally unique in the tree so there is no sibling collision."
+}

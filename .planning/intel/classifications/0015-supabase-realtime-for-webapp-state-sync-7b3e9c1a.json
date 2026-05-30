@@ -1,0 +1,27 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/adr/0015-supabase-realtime-for-webapp-state-sync.md",
+  "type": "ADR",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Supabase Realtime for webapp state sync",
+  "summary": "Decides the Anchor webapp observes server-side state changes via Supabase Realtime subscriptions on the User's own rows, with a 30-second polling fallback.",
+  "scope": [
+    "Supabase Realtime",
+    "webapp state synchronization",
+    "Onboarding Wizard",
+    "/account and /account/plan views",
+    "anchor_user / google_connection / stripe_subscription rows",
+    "RLS-scoped Realtime channels",
+    "polling fallback"
+  ],
+  "cross_refs": [
+    "../requirements/webapp-ui-ux-requirements.md",
+    "../requirements/user-journeys.md",
+    "../requirements/functional-requirements.md",
+    "./0010-supabase-edge-functions-as-anchor-hermes-api.md",
+    "./0011-nextjs-on-vercel-with-tailwind-and-shadcn.md"
+  ],
+  "locked": true,
+  "precedence": null,
+  "notes": ""
+}

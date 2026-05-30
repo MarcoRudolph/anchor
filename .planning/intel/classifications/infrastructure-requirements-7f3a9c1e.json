@@ -1,0 +1,29 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/requirements/infrastructure-requirements.md",
+  "type": "SPEC",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Anchor Infrastructure Requirements",
+  "summary": "Defines Anchor's eight infrastructure layers (INF-001 to INF-008), evaluates agent-runtime isolation options, and specifies the MVP deployment baseline and data-layer schema contracts.",
+  "scope": [
+    "webapp layer",
+    "Hermes agent runtime",
+    "Supabase/Postgres data layer",
+    "memory index and retrieval layer",
+    "scheduling layer",
+    "integration layer (Telegram, Google Calendar, LLM provider, STT, email)",
+    "security and per-user isolation",
+    "observability",
+    "Hostinger VPS / Docker deployment",
+    "agent runtime provisioning and artifacts"
+  ],
+  "cross_refs": [
+    "ADR 0001",
+    "ADR 0002",
+    "ADR 0003",
+    "ADR 0004"
+  ],
+  "locked": false,
+  "precedence": null,
+  "notes": "Classified SPEC over PRD/DOC: content is dominated by numbered technical constraints (INF-001..INF-008), a data-layer schema contract enforced by a CHECK constraint, named foreign-key/source_kind contracts, and retrieval capability requirements the system must honor — implementation contracts, not user-facing product requirements. The trade-off analysis of runtime Options A/B/C ends in an explicit MVP recommendation but the doc states 'It does not commit to a final stack' and defers binding choices to ADRs 0001-0004, so it is not an ADR (no locked decision, no Accepted status). cross_refs are ADR numbers referenced in the 'ADR candidates' section; the file contains no markdown links or explicit file paths."
+}

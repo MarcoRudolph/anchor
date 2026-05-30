@@ -1,0 +1,33 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/requirements/billing-and-plans-requirements.md",
+  "type": "PRD",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Anchor Billing and Plans Requirements",
+  "summary": "Defines Anchor's Free vs Pro plans, Daily Conversation Minute billing unit, Stripe subscription lifecycle, and gentle exhaustion/upgrade handling.",
+  "scope": [
+    "billing",
+    "subscription plans (Free, Pro)",
+    "Daily Conversation Minutes",
+    "Stripe Checkout and Customer Portal",
+    "plan-state mirror in Supabase",
+    "pricing display",
+    "payment failure grace and cancellation",
+    "refunds",
+    "tax/receipts/PCI"
+  ],
+  "cross_refs": [
+    "./README.md",
+    "./agent-behavior-requirements.md",
+    "./webapp-ui-ux-requirements.md",
+    "./functional-requirements.md",
+    "../adr/0005-stripe-subscription-for-pro-conversation-minutes.md",
+    "../contexts/usage-limits/CONTEXT.md",
+    "docs/contexts/usage-limits/CONTEXT.md",
+    "docs/adr/0005-stripe-subscription-for-pro-conversation-minutes.md",
+    "docs/adr/0002-hermes-orchestrates-telegram-agent-communication.md"
+  ],
+  "locked": false,
+  "precedence": null,
+  "notes": "Clear PRD: path under **/requirements/**, '-requirements.md' suffix, and content uses numbered requirements (BPR-001..BPR-011) each with explicit '**Requirement:**' + '**Acceptance criteria:**', plus in-scope/out-of-scope (goals/non-goals) sections. Document references ADR 0005 and ADR 0002 as upstream sources but is itself requirements, not a decision record."
+}

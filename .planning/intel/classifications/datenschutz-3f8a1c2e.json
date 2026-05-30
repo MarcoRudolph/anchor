@@ -1,0 +1,13 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/compliance/datenschutz.md",
+  "type": "DOC",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Datenschutzerklärung",
+  "summary": "German-language privacy policy draft copy for Anchor's /datenschutz route, covering processors, cookie-consent-free posture, and GDPR data-subject rights.",
+  "scope": ["privacy policy", "GDPR compliance", "data processors", "Telegram", "Google Calendar", "LLM (Anthropic/OpenAI)", "Deepgram", "Stripe", "Resend", "Supabase", "Vercel", "Hostinger", "cookie consent", "account deletion/export"],
+  "cross_refs": ["../adr/0021-legal-and-compliance-layer.md", "../requirements/compliance-requirements.md", "./subprocessors.md", "./impressum.md", "docs/compliance/subprocessors.md"],
+  "locked": false,
+  "precedence": null,
+  "notes": "Prose-heavy legal source-of-truth copy (not a decision, requirement set, or technical contract). References compliance requirements (CR-001..CR-011) and ADR-0021 but is itself documentation/content destined for a page.tsx route, so classified DOC."
+}

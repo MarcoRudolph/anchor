@@ -1,0 +1,28 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/contexts/usage-limits/CONTEXT.md",
+  "type": "DOC",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Usage Limits",
+  "summary": "Defines the ubiquitous domain language and relationships for how Anchor caps conversation length and model usage.",
+  "scope": [
+    "Conversation Budget",
+    "Message Size Limit",
+    "Rolling Usage Window",
+    "Gentle Limit Notice",
+    "Daily Conversation Minute",
+    "Plan (Free/Pro)",
+    "Conversation Turn",
+    "Turn Delivery",
+    "Failed Turn",
+    "User Timezone",
+    "Daily Minute Usage Row",
+    "Limit Explanation Turn",
+    "Silence Refresh Notice",
+    "Downgrade Grace"
+  ],
+  "cross_refs": [],
+  "locked": false,
+  "precedence": null,
+  "notes": ""
+}

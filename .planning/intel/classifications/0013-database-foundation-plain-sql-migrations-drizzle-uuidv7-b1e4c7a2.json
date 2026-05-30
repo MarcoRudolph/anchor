@@ -1,0 +1,26 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/adr/0013-database-foundation-plain-sql-migrations-drizzle-uuidv7.md",
+  "type": "ADR",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Database foundation: plain SQL migrations, Drizzle as query layer, UUIDv7",
+  "summary": "Locks Anchor's database foundation: plain SQL migrations applied via psql, Drizzle as query layer (not schema source), and UUIDv7 primary keys.",
+  "scope": [
+    "self-hosted Supabase Postgres",
+    "plain SQL migrations",
+    "Drizzle ORM query layer",
+    "UUIDv7 primary keys",
+    "anchor_user / auth.users identity mapping",
+    "RLS policies",
+    "deletion and retention semantics"
+  ],
+  "cross_refs": [
+    "../requirements/infrastructure-requirements.md",
+    "./0003-hostinger-vps-with-hermes-and-supabase-containers.md",
+    "./0010-supabase-edge-functions-as-anchor-hermes-api.md",
+    "docs/handoff.md"
+  ],
+  "locked": true,
+  "precedence": null,
+  "notes": ""
+}

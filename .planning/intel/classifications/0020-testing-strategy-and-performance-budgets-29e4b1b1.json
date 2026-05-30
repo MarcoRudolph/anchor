@@ -1,0 +1,30 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/adr/0020-testing-strategy-and-performance-budgets.md",
+  "type": "ADR",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Testing strategy and performance budgets",
+  "summary": "Locks Anchor's quality stack (Vitest, Playwright, custom LLM-judge agent eval harness, Lighthouse CI) and mobile-first performance budgets.",
+  "scope": [
+    "Vitest unit/integration testing",
+    "Playwright E2E testing",
+    "Agent Eval Harness (LLM judge)",
+    "User Acceptance Testing",
+    "Lighthouse CI",
+    "performance budgets (LCP, INP, CLS, first-load JS)",
+    "bundle analysis",
+    "font and image loading"
+  ],
+  "cross_refs": [
+    "../requirements/non-functional-requirements.md",
+    "../requirements/agent-behavior-requirements.md",
+    "../requirements/webapp-ui-ux-requirements.md",
+    "./0011-nextjs-on-vercel-with-tailwind-and-shadcn.md",
+    "./0018-operator-surface-via-supabase-studio-and-three-observability-vendors.md",
+    "docs/uat/<feature>.md",
+    "DESIGN.md"
+  ],
+  "locked": true,
+  "precedence": null,
+  "notes": ""
+}

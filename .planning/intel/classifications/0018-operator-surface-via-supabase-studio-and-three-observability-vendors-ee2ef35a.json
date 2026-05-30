@@ -1,0 +1,20 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/adr/0018-operator-surface-via-supabase-studio-and-three-observability-vendors.md",
+  "type": "ADR",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Operator surface and observability",
+  "summary": "During pilot scale, the operator surface is Supabase Studio with audited stored procedures; observability is split across Sentry, Axiom, and Better Stack with a defined alerting policy.",
+  "scope": ["operator surface", "Supabase Studio", "SECURITY DEFINER stored procedures", "operator_action_log", "observability", "Sentry", "Axiom structured logs", "Better Stack Uptime", "health endpoint", "alerting policy", "data retention"],
+  "cross_refs": [
+    "../requirements/non-functional-requirements.md",
+    "../requirements/infrastructure-requirements.md",
+    "../requirements/product-requirements.md",
+    "./0013-database-foundation-plain-sql-migrations-drizzle-uuidv7.md",
+    "ADR-0016",
+    "ADR-0013"
+  ],
+  "locked": true,
+  "precedence": null,
+  "notes": ""
+}

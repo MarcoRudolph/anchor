@@ -1,0 +1,25 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/contexts/safety/CONTEXT.md",
+  "type": "DOC",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Safety",
+  "summary": "Domain glossary defining canonical Safety terminology, entity relationships, and disambiguation rules for account recovery, non-response handling, consent, and emergency limits.",
+  "scope": [
+    "Recovery Flow",
+    "Trusted Contact Recovery Request",
+    "Verified Trusted Contact",
+    "Assisted Password Reset",
+    "Session Revocation",
+    "Non-response Escalation",
+    "Emergency Boundary",
+    "Consent Boundary",
+    "User Birthdate",
+    "User Zipcode",
+    "User Recovery Identifier"
+  ],
+  "cross_refs": [],
+  "locked": false,
+  "precedence": null,
+  "notes": ""
+}

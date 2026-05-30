@@ -1,0 +1,29 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/requirements/functional-requirements.md",
+  "type": "PRD",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Anchor Functional Requirements",
+  "summary": "Numbered functional requirements (FR-001..FR-081) defining Anchor's account, Telegram, calendar, check-in, memory, trusted-contact, billing, and i18n behaviors, each with acceptance criteria.",
+  "scope": [
+    "Anchor Account",
+    "User identity and login",
+    "Agent Settings",
+    "Telegram pairing and messaging",
+    "Google Calendar connection and events",
+    "Morning and Daily Check-ins",
+    "Memory facts, diary, recall, correction, deletion",
+    "Trusted Contacts and recovery",
+    "Message size and conversation budget limits",
+    "Stripe billing and plan management",
+    "Internationalization (en/de locales)"
+  ],
+  "cross_refs": [
+    "docs/contexts/user-identity/CONTEXT.md",
+    "docs/adr/0001-calendar-additions-without-confirmation.md",
+    "docs/adr/0005-stripe-subscription-for-pro-conversation-minutes.md"
+  ],
+  "locked": false,
+  "precedence": null,
+  "notes": "Strong PRD: requirement + acceptance-criteria structure throughout, path docs/requirements/. Some entries embed technical contract detail (e.g. FR-070 anchor_user_plan schema, FR-071 Stripe webhook events) that lean SPEC, but the dominant document form is requirements with acceptance criteria, so classified PRD. References ADR-0001 and ADR-0005 as locked sources."
+}

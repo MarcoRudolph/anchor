@@ -1,0 +1,28 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/adr/0009-conversation-minute-accounting-and-limit-ux.md",
+  "type": "ADR",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Conversation Minute accounting and limit UX",
+  "summary": "Locked decision on how daily Conversation Minutes are metered on Telegram-confirmed delivery, persisted in Postgres, reset at user-local midnight, and how over-limit UX behaves.",
+  "scope": [
+    "Conversation Minute accounting",
+    "Daily Minute Usage Row",
+    "Postgres increment_minutes RPC",
+    "user-local timezone reset",
+    "over-limit UX (Gentle Limit Notice, Silence Refresh Notice, Limit Explanation Turn)",
+    "voice reply charging",
+    "failed turn forensics",
+    "Pro-to-Free downgrade grace",
+    "/account/plan view"
+  ],
+  "cross_refs": [
+    "../contexts/usage-limits/CONTEXT.md",
+    "../requirements/agent-behavior-requirements.md",
+    "../requirements/functional-requirements.md",
+    "./0005-stripe-subscription-for-pro-conversation-minutes.md"
+  ],
+  "locked": true,
+  "precedence": null,
+  "notes": ""
+}

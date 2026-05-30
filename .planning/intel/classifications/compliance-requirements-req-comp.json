@@ -1,0 +1,32 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/requirements/compliance-requirements.md",
+  "type": "PRD",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Anchor Compliance Requirements",
+  "summary": "Legal-surface, consent, sub-processor, and GDPR data-subject-rights requirements Anchor must ship for its German B2C subscription before non-pilot launch.",
+  "scope": [
+    "legal documents (Impressum, Datenschutzerklaerung, AGB, Widerrufsbelehrung)",
+    "Widerruf consent at Checkout",
+    "cookie-consent-free posture",
+    "sub-processor register / AVV",
+    "right to erasure (GDPR Art. 17)",
+    "right to export (GDPR Art. 20)",
+    "Stripe subscription/refund lifecycle",
+    "magic-link auth session cookie"
+  ],
+  "cross_refs": [
+    "./README.md",
+    "./non-functional-requirements.md",
+    "./billing-and-plans-requirements.md",
+    "./webapp-ui-ux-requirements.md",
+    "../adr/0021-legal-and-compliance-layer.md",
+    "../adr/0006-passwordless-magic-link-auth-with-trusted-person-recovery.md",
+    "../adr/0016-stripe-operations-customer-lifecycle-webhooks-vat.md",
+    "docs/adr/0021-legal-and-compliance-layer.md",
+    "docs/compliance/subprocessors.md"
+  ],
+  "locked": false,
+  "precedence": null,
+  "notes": "Strong PRD signals: Purpose, in/out-of-scope sections, and numbered product requirements CR-001..CR-011 stating what the product must ship from a user/legal/business perspective. Path is requirements directory. Mechanics reference ADRs but the doc itself is requirement-level, not a decision record (it states it is the requirement-level expression of ADR-0021). Filename suffix is a stable path-unique token, not a SHA-256 hash, because no code-execution tool (python/ctx_execute) was available in this environment to compute one; the slug compliance-requirements is globally unique in the tree so there is no sibling collision."
+}

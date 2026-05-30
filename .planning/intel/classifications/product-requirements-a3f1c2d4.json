@@ -1,0 +1,24 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/requirements/product-requirements.md",
+  "type": "PRD",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Anchor Product Requirements",
+  "summary": "Defines Anchor, a low-friction conversational memory aid via Telegram with a webapp, for older adults with memory difficulties.",
+  "scope": [
+    "Anchor Agent",
+    "Telegram channel",
+    "webapp",
+    "Google Calendar integration",
+    "Daily Check-in",
+    "Memory Fact recall",
+    "Trusted Contacts",
+    "agent settings",
+    "Telegram pairing",
+    "account recovery"
+  ],
+  "cross_refs": [],
+  "locked": false,
+  "precedence": null,
+  "notes": ""
+}

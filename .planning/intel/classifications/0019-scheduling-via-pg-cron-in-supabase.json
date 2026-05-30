@@ -1,0 +1,26 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/adr/0019-scheduling-via-pg-cron-in-supabase.md",
+  "type": "ADR",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Scheduling via pg_cron in Supabase",
+  "summary": "All scheduled jobs run as pg_cron entries in Supabase Postgres, triggering Edge Functions over HTTP; missed runs are skipped rather than catch-up replayed.",
+  "scope": ["pg_cron", "Supabase Postgres", "scheduled jobs", "cron.job table", "Edge Functions", "Hermes", "Morning Calendar Check-in", "job idempotency", "advisory locks"],
+  "cross_refs": [
+    "../requirements/infrastructure-requirements.md",
+    "../requirements/functional-requirements.md",
+    "./0010-supabase-edge-functions-as-anchor-hermes-api.md",
+    "./0013-database-foundation-plain-sql-migrations-drizzle-uuidv7.md",
+    "./0016-stripe-operations-customer-lifecycle-webhooks-vat.md",
+    "ADR-0010",
+    "ADR-0016",
+    "ADR-0008",
+    "ADR-0017",
+    "ADR-0007",
+    "ADR-0013",
+    "ADR-0018"
+  ],
+  "locked": true,
+  "precedence": null,
+  "notes": ""
+}

@@ -1,0 +1,28 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/adr/0012-i18n-next-intl-de-authoritative.md",
+  "type": "ADR",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "i18n: next-intl with German as the authoritative locale",
+  "summary": "Adopts next-intl for the Anchor webapp with German as the authoritative legal locale, subpath routing, ICU formatting, namespaced catalogs, and a synced Hermes string subset.",
+  "scope": [
+    "internationalization (i18n)",
+    "next-intl",
+    "locale routing (/de, /en)",
+    "message catalogs / namespaces",
+    "ICU pluralization and formatting",
+    "legal copy localization",
+    "CI key-parity check (scripts/i18n-check.ts)",
+    "Hermes locale sync",
+    "users.locale"
+  ],
+  "cross_refs": [
+    "../requirements/webapp-ui-ux-requirements.md",
+    "../requirements/functional-requirements.md",
+    "./0011-nextjs-on-vercel-with-tailwind-and-shadcn.md",
+    "ADR-0010"
+  ],
+  "locked": true,
+  "precedence": null,
+  "notes": ""
+}

@@ -1,0 +1,20 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/adr/0003-hostinger-vps-with-hermes-and-supabase-containers.md",
+  "type": "ADR",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Hostinger VPS runs Hermes and Supabase containers for MVP",
+  "summary": "Sets the MVP deployment baseline as a single Hostinger VPS running Hermes and Supabase in separate Docker containers, deferring per-user containers.",
+  "scope": [
+    "Hostinger VPS",
+    "Hermes",
+    "Supabase",
+    "Docker containers",
+    "MVP deployment topology",
+    "per-user data isolation"
+  ],
+  "cross_refs": [],
+  "locked": false,
+  "precedence": null,
+  "notes": "Path (docs/adr/) and numbered filename (0003-) plus a single chosen infrastructure decision with trade-off rationale make this a clear ADR. Source is a one-paragraph stub with no explicit Status field, so locked set to false (no Accepted marker); no markdown links present, so cross_refs empty. Filename hash segment is a placeholder, not a computed SHA-256, because hashing tooling was unavailable in this session; basename is already unique among siblings so no collision results."
+}

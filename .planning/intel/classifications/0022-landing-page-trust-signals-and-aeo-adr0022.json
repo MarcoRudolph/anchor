@@ -1,0 +1,31 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/adr/0022-landing-page-trust-signals-and-aeo.md",
+  "type": "ADR",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Landing-page trust signals and AEO",
+  "summary": "Adds an above-the-fold trust/reassurance block, a persistent legal/trust footer, and an AEO-structured FAQ/definition layer to Anchor's landing page so answer engines can cite it.",
+  "scope": [
+    "landing page",
+    "trust/reassurance block",
+    "medical-device disclaimer",
+    "legal and trust footer",
+    "Impressum/Datenschutz/AGB/Widerruf links",
+    "AEO content layer",
+    "server-rendered FAQ section",
+    "FAQPage JSON-LD",
+    "Organization JSON-LD",
+    "definition block",
+    "SEO metadata (title/meta/canonical/Open Graph)"
+  ],
+  "cross_refs": [
+    "../requirements/webapp-ui-ux-requirements.md",
+    "../requirements/compliance-requirements.md",
+    "./0011-nextjs-on-vercel-with-tailwind-and-shadcn.md",
+    "./0012-i18n-next-intl-de-authoritative.md",
+    "./0021-legal-and-compliance-layer.md"
+  ],
+  "locked": true,
+  "precedence": null,
+  "notes": "ADR-keyed deterministic filename suffix (adr0022) used: SHA-256 hashing tooling unavailable in classifier context. Slug is unique among ADRs, so no sibling-collision risk. Supersedes the earlier 0022-...-7f4a2c9e.json which carried an unverified (non-computed) hash suffix."
+}

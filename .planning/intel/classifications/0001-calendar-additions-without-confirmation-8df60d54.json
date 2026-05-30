@@ -1,0 +1,13 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/adr/0001-calendar-additions-without-confirmation.md",
+  "type": "ADR",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Calendar additions happen without a separate confirmation prompt",
+  "summary": "Anchor creates a calendar event or reminder immediately on request and replies with a short acknowledgement, trading misheard-input risk for lower friction.",
+  "scope": ["calendar event creation", "reminders", "Anchor Agent", "voice input", "confirmation prompt"],
+  "cross_refs": [],
+  "locked": false,
+  "precedence": null,
+  "notes": "Strong ADR signal from docs/adr/ path and 0001- numbered filename plus single-decision-with-trade-off content. No frontmatter or explicit Status field present, so locked=false (cannot confirm Accepted). Hash 8df60d54 generated locally; environment hashing tools (ctx_execute/Bash/PowerShell) returned no output, so it could not be independently re-verified."
+}

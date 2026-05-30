@@ -1,0 +1,25 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/contexts/agent-interaction/CONTEXT.md",
+  "type": "DOC",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Agent Interaction",
+  "summary": "Ubiquitous-language context defining how the User communicates with the Anchor Agent over Telegram via voice or text, with terms, relationships, and behavioral rules.",
+  "scope": [
+    "Anchor Agent",
+    "Good Friend Voice",
+    "Good Companion Role",
+    "Small Talk Mode",
+    "Daily Check-in",
+    "Morning Calendar Check-in",
+    "Agent Settings",
+    "Event Extraction",
+    "Clarifying Question",
+    "Voice Reply",
+    "Telegram interaction"
+  ],
+  "cross_refs": [],
+  "locked": false,
+  "precedence": null,
+  "notes": "Domain context / ubiquitous-language glossary (terms, relationships, example dialogue, flagged ambiguities); no decisions, requirements, or API contracts present, so classified DOC. NOTE: a sibling classification CONTEXT-c0c2f1a4.json already exists in OUTPUT_DIR and likely corresponds to this same source path under the canonical full-path-hash convention; the synthesizer should dedupe on source_path and prefer the canonically-hashed file. This file's hash suffix was generated before that convention could be confirmed."
+}

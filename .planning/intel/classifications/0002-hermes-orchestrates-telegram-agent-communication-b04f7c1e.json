@@ -1,0 +1,13 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/adr/0002-hermes-orchestrates-telegram-agent-communication.md",
+  "type": "ADR",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Hermes orchestrates Telegram agent communication",
+  "summary": "Hermes owns runtime Telegram conversation orchestration while the Anchor backend provides stable APIs and retains ownership of state, permissions, and memory.",
+  "scope": ["Hermes", "Telegram", "Good Friend Voice", "Small Talk Mode", "calendar skill", "diary skill", "memory skill", "Anchor backend", "Google Connection", "Recovery Flows", "Zapier"],
+  "cross_refs": [],
+  "locked": false,
+  "precedence": null,
+  "notes": "Filename convention (docs/adr/, 0002- prefix) and single-decision content firmly indicate ADR. No explicit Status: Accepted marker present, so locked set to false per locked-only-when-Accepted rule; if synthesizer treats numbered ADRs as accepted by default, locked may warrant promotion."
+}

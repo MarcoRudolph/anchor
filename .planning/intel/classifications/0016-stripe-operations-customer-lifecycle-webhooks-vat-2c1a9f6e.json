@@ -1,0 +1,27 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/adr/0016-stripe-operations-customer-lifecycle-webhooks-vat.md",
+  "type": "ADR",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Stripe operations: customer lifecycle, webhooks, VAT",
+  "summary": "Locks Stripe operational decisions: Customer created at signup, Price IDs in app_config, event-id idempotent webhooks with hourly reconciliation, composite idempotency keys, and net-fixed VAT with country-specific Checkout markup.",
+  "scope": [
+    "Stripe Customer lifecycle",
+    "app_config table for Price/Product IDs",
+    "Stripe webhook handler",
+    "stripe_event_log idempotency",
+    "subscription reconciliation job",
+    "outbound idempotency keys",
+    "VAT handling at Checkout",
+    "Stripe Tax"
+  ],
+  "cross_refs": [
+    "../requirements/billing-and-plans-requirements.md",
+    "../requirements/functional-requirements.md",
+    "./0005-stripe-subscription-for-pro-conversation-minutes.md",
+    "./0010-supabase-edge-functions-as-anchor-hermes-api.md"
+  ],
+  "locked": true,
+  "precedence": null,
+  "notes": ""
+}

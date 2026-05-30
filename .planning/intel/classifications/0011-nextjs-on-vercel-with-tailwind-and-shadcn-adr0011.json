@@ -1,0 +1,27 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/adr/0011-nextjs-on-vercel-with-tailwind-and-shadcn.md",
+  "type": "ADR",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Next.js on Vercel with Tailwind and shadcn/ui",
+  "summary": "Locks the Anchor webapp as Next.js 15 App Router deployed to Vercel, styled with Tailwind CSS and shadcn/ui, with backend services remaining on the Hostinger VPS.",
+  "scope": [
+    "Anchor webapp frontend",
+    "Next.js 15 App Router",
+    "Vercel deployment and CDN",
+    "Tailwind CSS",
+    "shadcn/ui components",
+    "magic-ui motion library",
+    "next-intl internationalization",
+    "Stripe webhook Route Handlers",
+    "SEO/AEO funnel pages"
+  ],
+  "cross_refs": [
+    "../requirements/webapp-ui-ux-requirements.md",
+    "../requirements/infrastructure-requirements.md",
+    "./0003-hostinger-vps-with-hermes-and-supabase-containers.md"
+  ],
+  "locked": true,
+  "precedence": null,
+  "notes": ""
+}

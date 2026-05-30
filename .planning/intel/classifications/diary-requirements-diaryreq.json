@@ -1,0 +1,31 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/requirements/diary-requirements.md",
+  "type": "PRD",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Anchor Diary Requirements",
+  "summary": "Product requirements for the Diary as a first-class object: conversational capture, canonical storage, source evidence, dated recall, correction, deletion, privacy, and export.",
+  "scope": [
+    "Diary Entry",
+    "Conversational diary capture",
+    "Canonical relational storage",
+    "Source Evidence",
+    "Dated timeline recall",
+    "Correction via conversation",
+    "Deletion and recall exclusion",
+    "Privacy-preserving surfacing",
+    "Telegram grounded recall",
+    "Data export"
+  ],
+  "cross_refs": [
+    "./README.md",
+    "./agent-behavior-requirements.md",
+    "./memory-requirements.md",
+    "./functional-requirements.md",
+    "../adr/0013-database-foundation-plain-sql-migrations-drizzle-uuidv7.md",
+    "../adr/0004-anchor-specific-memory-index-instead-of-ob1-thoughts.md"
+  ],
+  "locked": false,
+  "precedence": null,
+  "notes": "Path is docs/requirements/ and content is structured as numbered requirements (DR-001 to DR-008) describing what the Diary feature must do in user/product language ('A User can correct/delete...', 'Diary Entries are extracted...'). No endpoint or schema contracts, so SPEC was ruled out despite a few storage-field mentions. High confidence: requirements-path convention plus matching numbered-requirement content both indicate PRD. Filename suffix uses the deterministic readable fallback (same convention as sibling adr0008/00000019 classifications) because no SHA-256 execution tool was available in this agent; slug 'diary-requirements' is already unique across all classification files so no collision risk."
+}

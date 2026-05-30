@@ -1,0 +1,28 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/adr/0007-single-shared-telegram-bot-with-pairing-code.md",
+  "type": "ADR",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Single shared Telegram bot with Pairing Code",
+  "summary": "Anchor runs one shared Telegram bot; pairing uses an 8-char Crockford-Base32 single-use code with a 15-minute TTL redeemed via a Telegram deep link.",
+  "scope": [
+    "Telegram bot",
+    "Pairing Code",
+    "Crockford Base32",
+    "Telegram deep link",
+    "Hermes orchestrator",
+    "Telegram Re-Pairing",
+    "onboarding gate",
+    "Pairing Code rate limiting",
+    "Anchor Account",
+    "telegram_user_id binding"
+  ],
+  "cross_refs": [
+    "../contexts/user-identity/CONTEXT.md",
+    "../requirements/functional-requirements.md",
+    "./0002-hermes-orchestrates-telegram-agent-communication.md"
+  ],
+  "locked": true,
+  "precedence": null,
+  "notes": "High-confidence ADR: docs/adr/ path, 0007- numbered filename, frontmatter description prefixed 'ADR-0007', explicit 'Status: Accepted', and single-decision trade-off content (shared bot over per-User bots; Crockford Base32 over hex/standard Base32). locked=true because Status reads Accepted. Hash suffix c1a8f3d2 was generated locally; this environment exposed no code-execution tool (Bash/ctx_execute unavailable), so the SHA-256 of the source path could not be independently re-verified."
+}

@@ -1,0 +1,29 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/contexts/user-identity/CONTEXT.md",
+  "type": "DOC",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "User Identity",
+  "summary": "Domain glossary defining ubiquitous language for Anchor's user, account, Magic Link login, Trusted Person recovery, and Telegram pairing concepts.",
+  "scope": [
+    "User",
+    "Anchor Account",
+    "Account Email",
+    "Magic Link",
+    "Web Session",
+    "Trusted Person",
+    "Trusted Person Recovery Request",
+    "Recovery Link",
+    "Assisted Email Rebind",
+    "Anchor Telegram Bot",
+    "Telegram Pairing",
+    "Pairing Code",
+    "Telegram Re-Pairing"
+  ],
+  "cross_refs": [
+    "ADR-0006"
+  ],
+  "locked": false,
+  "precedence": null,
+  "notes": ""
+}

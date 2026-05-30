@@ -1,0 +1,13 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/adr/0004-anchor-specific-memory-index-instead-of-ob1-thoughts.md",
+  "type": "ADR",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Anchor uses a domain-specific memory index instead of OB1 thoughts",
+  "summary": "Decides Anchor builds a domain-specific Postgres memory index with real foreign keys instead of reusing OB1's generic thoughts table.",
+  "scope": ["memory index", "OpenBrain Supabase/pgvector/Edge Functions", "OB1 thoughts table", "Conversation Transcripts", "Diary Entries", "Memory Facts", "Calendar Events", "Recall Exclusion", "source integrity CHECK constraint"],
+  "cross_refs": [],
+  "locked": false,
+  "precedence": null,
+  "notes": "No frontmatter or Status field present; classified ADR via numbered filename + adr/ path + single locked technical decision. locked=false because no explicit Accepted status to confirm lock. No cross-references found in body."
+}

@@ -1,0 +1,13 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/styleguide.md",
+  "type": "DOC",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Floema — Styleguide",
+  "summary": "A design styleguide reverse-engineered from the Floema site documenting its color palette, typography, layout, motion, and CSS tokens as aesthetic reference.",
+  "scope": ["color palette", "typography", "layout", "motion and interaction", "imagery", "iconography", "CSS design tokens"],
+  "cross_refs": ["./floema-styleguide.md", "./floema-hero.png"],
+  "locked": false,
+  "precedence": null,
+  "notes": ""
+}

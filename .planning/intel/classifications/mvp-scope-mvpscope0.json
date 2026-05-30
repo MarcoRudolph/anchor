@@ -1,0 +1,26 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/requirements/mvp-scope.md",
+  "type": "PRD",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Anchor MVP Scope",
+  "summary": "Defines what is in scope, out of scope, and deferred for the Anchor MVP across identity, Telegram agent, check-ins, calendar, memory, and safety.",
+  "scope": [
+    "MVP scope boundaries",
+    "Anchor Account and login",
+    "Telegram pairing and agent interaction",
+    "Google Calendar read/write",
+    "Agent settings (check-in time, wellbeing, reminders)",
+    "voice transcription",
+    "proactive morning and evening check-ins",
+    "calendar additions",
+    "memory facts and diary entries",
+    "memory recall/correction/deletion",
+    "Trusted Contacts (recovery-only)",
+    "emergency boundary safety"
+  ],
+  "cross_refs": [],
+  "locked": false,
+  "precedence": null,
+  "notes": "Path under docs/requirements/ and product-perspective content: In scope / Out of scope for MVP / Later, not now / MVP hardcoding decisions / Scope risk sections defining product capabilities and boundaries, not a single architectural decision (not ADR) and no API/schema contracts (not SPEC). 'MVP hardcoding decisions' are product-scope choices, not ADR-style trade-off records, so PRD wins. No outbound markdown links or doc-path mentions found, so cross_refs is empty. Source-path SHA-256 could not be computed (ctx_execute and Bash both unavailable in this context); filename suffix 'mvpscope0' is a deterministic path-derived fallback and the basename mvp-scope.md is unique repo-wide, so no sibling collision is possible."
+}

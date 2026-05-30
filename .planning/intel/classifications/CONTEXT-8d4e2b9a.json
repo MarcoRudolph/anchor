@@ -1,0 +1,13 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/contexts/patient-identity/CONTEXT.md",
+  "type": "DOC",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Deprecated: Patient Identity",
+  "summary": "Deprecation stub rejecting the 'Patient Identity' context name and redirecting readers to the User Identity context.",
+  "scope": ["patient-identity context", "user-identity context", "naming and terminology"],
+  "cross_refs": ["../user-identity/CONTEXT.md"],
+  "locked": false,
+  "precedence": null,
+  "notes": ""
+}

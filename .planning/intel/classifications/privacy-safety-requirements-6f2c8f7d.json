@@ -1,0 +1,25 @@
+{
+  "source_path": "E:/Users/Marco/DokumenteAlt/repo/anchor/docs/requirements/privacy-safety-requirements.md",
+  "type": "PRD",
+  "confidence": "high",
+  "manifest_override": false,
+  "title": "Anchor Privacy and Safety Requirements",
+  "summary": "Defines twelve numbered privacy and safety requirements (PSR-001 to PSR-012) with acceptance criteria for Anchor's handling of sensitive personal data.",
+  "scope": [
+    "non-clinical framing",
+    "emergency boundary",
+    "Trusted Contacts consent and least privilege",
+    "password recovery and assisted reset",
+    "sensitive recovery data (birthdate, zipcode)",
+    "memory deletion and recall exclusion",
+    "Source Evidence privacy",
+    "Google OAuth token security",
+    "Telegram data handling",
+    "limit notices",
+    "auditability and logging"
+  ],
+  "cross_refs": [],
+  "locked": false,
+  "precedence": null,
+  "notes": ""
+}
