@@ -22,13 +22,14 @@ Anchor is built as two deployables together — (A) the Anchor repo (Next.js on 
 **Goal**: Freeze every shared interface between Anchor and Hermes and prove the full seam end-to-end, so the four parallel waves can build behind stable contracts without re-negotiating boundaries.
 **Depends on**: Nothing (first phase)
 **Requirements**: REQ-mvp-scope, REQ-user-journeys, REQ-functional (account/identity/edge-fn/i18n/CI backbone)
-**Build shape**: SEQUENTIAL (single foundation pass — no parallelism)
+**Build shape**: SEQUENTIAL spine, dependency-ordered into 4 waves (no two same-wave plans share files)
 **Work items**:
-  - [A] Next.js 15 / Vercel scaffold + Tailwind/shadcn/magic-ui + next-intl DE/EN + app shell & Rudolpho-AI branding (DEC-0011, DEC-0012)
+  - [A] Next.js 16 / Vercel scaffold (proxy.ts middleware, next-intl v4, Tailwind v4 CSS-first) + shadcn/magic-ui + next-intl DE/EN + app shell & Rudolpho-AI branding (DEC-0011 amended 2026-05-30, DEC-0012)
   - [A] DB migration foundation: plain SQL + Drizzle query layer + UUIDv7 + RLS; `anchor_user.id = auth.users.id` (DEC-0013)
   - [A] Magic-link auth + device-bound session (DEC-0006)
   - [A] The 13-endpoint edge-fn contract stub + `x-hermes-secret` + `docs/api/openapi.yaml` (DEC-0010)
   - [A] CI gates wired: Vitest, Playwright, Lighthouse, i18n key-parity (DEC-0020, DEC-0012)
+  - [A] VPS/Supabase environment smoke (CREATE EXTENSION + Realtime publication) — first task, fails fast on the self-hosted beta risk
   - [H] Docker skeleton, Telegram webhook receive, pairing-code redeem via edge fn, echo turn (DEC-0002, DEC-0003, DEC-0007)
 **FREEZE artifacts (gate to exit phase)**:
   - Cross-context DB schema: `anchor_user`, transcripts/source-evidence, memory entity+relationship DDL, plan/subscription, `trusted_contact`, `google_connection`, `telegram_session`
@@ -39,7 +40,13 @@ Anchor is built as two deployables together — (A) the Anchor repo (Next.js on 
   2. The frozen DB schema migrations apply cleanly via psql, Drizzle introspects them, RLS scopes every table to `auth.uid()`, and the schema is committed as the source of truth.
   3. The 13-endpoint contract is callable by both webapp (session JWT) and Hermes (service-role + `x-hermes-secret`); `docs/api/openapi.yaml` matches the deployed stubs.
   4. CI is green: Vitest, Playwright (pairing journey), Lighthouse, and i18n key-parity all run and pass on every PR.
-**Plans**: TBD
+**Plans**: 6 plans (4 waves)
+  - [ ] 00-01-PLAN.md — [A] VPS/Supabase environment smoke: CREATE EXTENSION + Realtime publication probe (Wave 1, BLOCKING)
+  - [ ] 00-02-PLAN.md — [A] Next 16 scaffold + Tailwind v4 + shadcn + next-intl v4 (proxy.ts) + Rudolpho-AI brand shell (Wave 1)
+  - [ ] 00-03-PLAN.md — [A] Frozen cross-context DB schema (full DDL) + RLS + realtime + drizzle-kit pull (Wave 2)
+  - [ ] 00-04-PLAN.md — [A] CI gates: Vitest + Playwright (UJ-002 scaffold) + Lighthouse budgets + i18n key-parity (Wave 2)
+  - [ ] 00-05-PLAN.md — [A] 13-endpoint edge-fn stubs + OpenAPI + two-tier auth + Google-token module + magic-link auth (Wave 3)
+  - [ ] 00-06-PLAN.md — [A+H] Hermes skeleton + pairing UI + Realtime hook + UJ-002 E2E exit gate (Wave 4)
 **UI hint**: yes
 
 ### Phase 1: Wave 1 — Identity, Billing, Safety, Diary
@@ -121,7 +128,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 0. Spine & Interface Freeze | 0/TBD | Not started | - |
+| 0. Spine & Interface Freeze | 0/6 | Not started | - |
 | 1. Wave 1 — Identity/Billing/Safety/Diary | 0/TBD | Not started | - |
 | 2. Wave 2 — Memory/Calendar/Limits/UI | 0/TBD | Not started | - |
 | 3. Wave 3 — Hermes/Voice/Check-ins | 0/TBD | Not started | - |
