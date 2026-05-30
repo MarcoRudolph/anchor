@@ -21,3 +21,15 @@ Tailwind is made the official styling system (WUX-013 already uses Tailwind synt
 Webapp build, deploy, and preview environments are Vercel-managed; production deployments are gated on green CI (lint + type check + i18n key-parity + Lighthouse budget once defined). Stripe webhook receivers live in Next.js Route Handlers on Vercel because they are public-facing HTTPS endpoints that benefit from Vercel's signed-deployment URLs; Hermes-side webhooks (Telegram) remain on the Hostinger VPS because Telegram requires a stable, server-pinned endpoint with bot-token authentication, not edge-distributed handlers.
 
 Out of scope for MVP: a native mobile app, an Electron desktop wrapper, server-side rendering on the Hostinger VPS, an alternative non-Vercel CDN, a custom UI component library distinct from shadcn/ui.
+
+## Amendment 2026-05-30 — Next.js 16 (was 15)
+
+Status: Accepted
+
+At Phase 0 scaffold time the current Next.js major was **16.2.6**, not 15. Anchor is greenfield, so it is built on Next.js **16** (App Router) rather than starting a new product on the prior major. This supersedes "Next.js 15" everywhere above; nothing else in the decision changes (Vercel, Tailwind, shadcn/ui, magic-ui, next-intl, AEO rationale, deployment split all stand).
+
+Concrete deltas the implementation must honor:
+- **Middleware renamed:** Next 16 uses `src/proxy.ts` (not `middleware.ts`). The next-intl locale middleware lives there.
+- **next-intl v4** App-Router API (not v3). Subpath routing `/de`, `/en` per ADR-0012 unchanged.
+- **Tailwind v4** (CSS-first config via `@theme` in CSS; no `tailwind.config.js`).
+- Version pins are recorded in `.planning/phases/00-spine-interface-freeze/00-RESEARCH.md` (registry-verified 2026-05-30).
