@@ -7,13 +7,13 @@
  * make to the `pairing-redeem` Supabase Edge Function after receiving the
  * `/start <code>` command.
  *
- * Auth mirrors the real Hermes call:
+ * Auth mirrors the real Hermes call exactly (DEC-0010):
  *   - Authorization: Bearer <SUPABASE_SERVICE_ROLE_KEY>
  *   - x-hermes-secret: <HERMES_SECRET>
  *
- * This file is fully wired in plan 00-06 once the edge fns + Hermes exist.
- * For now it exports the function signature + fetch shape so the pairing spec
- * can reference it as a typed import.
+ * Contract body matches supabase/functions/_shared/contract.ts PairingRedeemRequest:
+ *   { code: string; telegramUserId: number; telegramUsername?: string }
+ * camelCase field names — matches the frozen contract (00-05).
  */
 
 export interface StubBotRedeemOptions {
@@ -42,8 +42,8 @@ export interface StubBotRedeemResult {
  * `pairing-redeem` edge function after a user sends the pairing code via
  * Telegram.
  *
- * Fully wired in plan 00-06; currently returns a typed stub so the spec
- * can import it without runtime errors.
+ * Body uses camelCase to match the PairingRedeemRequest contract shape
+ * defined in supabase/functions/_shared/contract.ts.
  */
 export async function stubRedeemPairingCode(
   opts: StubBotRedeemOptions,
@@ -57,10 +57,11 @@ export async function stubRedeemPairingCode(
       Authorization: `Bearer ${opts.serviceRoleKey}`,
       'x-hermes-secret': opts.hermesSecret,
     },
+    // camelCase keys — matches PairingRedeemRequest in contract.ts (T-00-21)
     body: JSON.stringify({
       code: opts.pairingCode,
-      telegram_user_id: opts.telegramUserId,
-      telegram_username: opts.telegramUsername ?? null,
+      telegramUserId: opts.telegramUserId,
+      ...(opts.telegramUsername != null && { telegramUsername: opts.telegramUsername }),
     }),
   });
 
