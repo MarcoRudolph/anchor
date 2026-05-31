@@ -1,0 +1,46 @@
+{
+  "name": "anchor",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "db:migrate": "bash scripts/db-migrate.sh",
+    "i18n:check": "tsx scripts/i18n-check.ts"
+  },
+  "dependencies": {
+    "@react-email/components": "latest",
+    "@supabase/ssr": "0.10.3",
+    "@supabase/supabase-js": "2.106.2",
+    "clsx": "^2.1.1",
+    "drizzle-orm": "0.45.2",
+    "next": "16.2.6",
+    "next-intl": "4.13.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "resend": "6.12.4",
+    "stripe": "22.2.0",
+    "tailwind-merge": "^3.6.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.5",
+    "@lhci/cli": "0.15.1",
+    "@next/bundle-analyzer": "^16.2.6",
+    "@playwright/test": "1.60.0",
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitest/coverage-v8": "^4.1.7",
+    "drizzle-kit": "0.31.10",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.6",
+    "tailwindcss": "4.3.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5",
+    "vitest": "4.1.7"
+  }
+}
