@@ -18,5 +18,21 @@
   "errors": {
     "notFound": "Page not found",
     "serverError": "Something went wrong. Please try again."
+  },
+  "pairing": {
+    "headline": "Connect Telegram",
+    "subline": "Open the link or send the code to the bot to pair your account.",
+    "codeLabel": "Your pairing code",
+    "deepLinkLabel": "Open in Telegram",
+    "copyButton": "Copy code",
+    "copiedButton": "Copied!",
+    "statusUnpaired": "Not connected",
+    "statusConnected": "Connected",
+    "statusVerbunden": "connected",
+    "loadingCode": "Loading code…",
+    "errorLoadingCode": "Could not load code. Please try again.",
+    "retryButton": "Try again",
+    "expiresLabel": "Expires at",
+    "securityHint": "The code is valid for 15 minutes and can only be used once."
   }
 }

@@ -18,5 +18,21 @@
   "errors": {
     "notFound": "Seite nicht gefunden",
     "serverError": "Ein Fehler ist aufgetreten. Bitte versuche es erneut."
+  },
+  "pairing": {
+    "headline": "Telegram verbinden",
+    "subline": "Scanne den Link oder sende den Code an den Bot, um dein Konto zu koppeln.",
+    "codeLabel": "Dein Paarungscode",
+    "deepLinkLabel": "In Telegram öffnen",
+    "copyButton": "Code kopieren",
+    "copiedButton": "Kopiert!",
+    "statusUnpaired": "Nicht verbunden",
+    "statusConnected": "Verbunden",
+    "statusVerbunden": "verbunden",
+    "loadingCode": "Code wird geladen…",
+    "errorLoadingCode": "Code konnte nicht geladen werden. Bitte versuche es erneut.",
+    "retryButton": "Erneut versuchen",
+    "expiresLabel": "Läuft ab um",
+    "securityHint": "Der Code ist 15 Minuten gültig und kann nur einmal verwendet werden."
   }
 }
