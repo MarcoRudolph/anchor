@@ -41,9 +41,9 @@ Anchor is built as two deployables together — (A) the Anchor repo (Next.js on 
   3. The 13-endpoint contract is callable by both webapp (session JWT) and Hermes (service-role + `x-hermes-secret`); `docs/api/openapi.yaml` matches the deployed stubs.
   4. CI is green: Vitest, Playwright (pairing journey), Lighthouse, and i18n key-parity all run and pass on every PR.
 **Plans**: 6 plans (4 waves)
-  - [~] 00-01-PLAN.md — [A] VPS/Supabase environment smoke: CREATE EXTENSION + Realtime publication probe (Wave 1, BLOCKING) — Task 1 done (files committed); Task 2 PAUSED at blocking human-action checkpoint (needs live VPS DATABASE_URL)
+  - [x] 00-01-PLAN.md — [A] VPS/Supabase environment smoke (Wave 1, BLOCKING) — DONE on live VPS: pg_uuidv7 UNAVAILABLE → uuidv7 npm fallback; pgcrypto/pg_cron/pg_net/vector + supabase_realtime OK
   - [x] 00-02-PLAN.md — [A] Next 16 scaffold + Tailwind v4 + shadcn + next-intl v4 (proxy.ts) + Rudolpho-AI brand shell (Wave 1) — builds clean on Next 16.2.6
-  - [ ] 00-03-PLAN.md — [A] Frozen cross-context DB schema (full DDL) + RLS + realtime + drizzle-kit pull (Wave 2) — BLOCKED on 00-01 checkpoint
+  - [x] 00-03-PLAN.md — [A] Frozen cross-context DB schema (full DDL) + RLS + realtime + drizzle-kit pull (Wave 2) — DONE: 18 tables applied to VPS, RLS 18/18, typecheck green
   - [x] 00-04-PLAN.md — [A] CI gates: Vitest + Playwright (UJ-002 scaffold) + Lighthouse budgets + i18n key-parity (Wave 2) — Vitest 5/5 green, i18n parity green
   - [ ] 00-05-PLAN.md — [A] 13-endpoint edge-fn stubs + OpenAPI + two-tier auth + Google-token module + magic-link auth (Wave 3)
   - [ ] 00-06-PLAN.md — [A+H] Hermes skeleton + pairing UI + Realtime hook + UJ-002 E2E exit gate (Wave 4)
@@ -128,7 +128,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 0. Spine & Interface Freeze | 2/6 | In progress (00-01 at VPS checkpoint) | - |
+| 0. Spine & Interface Freeze | 4/6 | In progress (Wave 3: 00-05 edge fns next) | - |
 | 1. Wave 1 — Identity/Billing/Safety/Diary | 0/TBD | Not started | - |
 | 2. Wave 2 — Memory/Calendar/Limits/UI | 0/TBD | Not started | - |
 | 3. Wave 3 — Hermes/Voice/Check-ins | 0/TBD | Not started | - |

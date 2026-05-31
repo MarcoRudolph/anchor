@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-05-30)
 ## Current Position
 
 Phase: 0 of 4 (Spine & Interface Freeze)
-Plan: 2 of 6 complete (00-02, 00-04); 00-01 paused at blocking VPS checkpoint
-Status: In progress — PAUSED at 00-01 human-action checkpoint (needs live VPS DATABASE_URL)
-Last activity: 2026-05-31 — Executed autonomous Wave-1/2 plans: 00-02 Next 16 scaffold (builds clean on 16.2.6) + 00-04 CI gates (Vitest 5/5, i18n parity green); 00-01 Task 1 (psql runner + extensions/realtime smoke migration) committed (fff9f75), Task 2 awaiting real VPS Postgres
+Plan: 4 of 6 complete (00-01, 00-02, 00-03, 00-04); next = 00-05 (Wave 3, edge functions)
+Status: In progress — Waves 1+2 done; schema frozen on live VPS; ready for Wave 3
+Last activity: 2026-05-31 — 00-01 smoke ran on live VPS (pg_uuidv7 unavailable → uuidv7 npm fallback); 00-03 froze 18-table schema on VPS (RLS 18/18, realtime publication, drizzle-kit pull → src/db, typecheck green). DB reached via ssh key id_ed25519_hostinger + docker exec / -L tunnel.
 
-Progress: [███░░░░░░░] 33% (2/6 plans)
+Progress: [██████░░░░] 67% (4/6 plans)
 
 ## Performance Metrics
 
