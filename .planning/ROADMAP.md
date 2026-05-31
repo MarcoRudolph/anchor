@@ -45,8 +45,8 @@ Anchor is built as two deployables together — (A) the Anchor repo (Next.js on 
   - [x] 00-02-PLAN.md — [A] Next 16 scaffold + Tailwind v4 + shadcn + next-intl v4 (proxy.ts) + Rudolpho-AI brand shell (Wave 1) — builds clean on Next 16.2.6
   - [x] 00-03-PLAN.md — [A] Frozen cross-context DB schema (full DDL) + RLS + realtime + drizzle-kit pull (Wave 2) — DONE: 18 tables applied to VPS, RLS 18/18, typecheck green
   - [x] 00-04-PLAN.md — [A] CI gates: Vitest + Playwright (UJ-002 scaffold) + Lighthouse budgets + i18n key-parity (Wave 2) — Vitest 5/5 green, i18n parity green
-  - [ ] 00-05-PLAN.md — [A] 13-endpoint edge-fn stubs + OpenAPI + two-tier auth + Google-token module + magic-link auth (Wave 3)
-  - [ ] 00-06-PLAN.md — [A+H] Hermes skeleton + pairing UI + Realtime hook + UJ-002 E2E exit gate (Wave 4)
+  - [x] 00-05-PLAN.md — [A] 13-endpoint edge-fn stubs + OpenAPI + two-tier auth + Google-token module + magic-link auth (Wave 3) — DONE: 32 edge tests green, tsc clean
+  - [~] 00-06-PLAN.md — [A+H] Hermes skeleton + pairing UI + Realtime hook + UJ-002 E2E exit gate (Wave 4) — CODE DONE (hermes tsc + webapp tsc + spec parse green); PENDING live verification: (1) UJ-002 Playwright run vs local Supabase stack/CI, (2) blocking real-device Telegram checkpoint (needs Hermes deployed on VPS + real bot)
 **UI hint**: yes
 
 ### Phase 1: Wave 1 — Identity, Billing, Safety, Diary
@@ -128,7 +128,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 0. Spine & Interface Freeze | 4/6 | In progress (Wave 3: 00-05 edge fns next) | - |
+| 0. Spine & Interface Freeze | 5.5/6 | Code complete; awaiting UJ-002 live run + real-device check | - |
 | 1. Wave 1 — Identity/Billing/Safety/Diary | 0/TBD | Not started | - |
 | 2. Wave 2 — Memory/Calendar/Limits/UI | 0/TBD | Not started | - |
 | 3. Wave 3 — Hermes/Voice/Check-ins | 0/TBD | Not started | - |

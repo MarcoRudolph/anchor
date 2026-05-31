@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-05-30)
 ## Current Position
 
 Phase: 0 of 4 (Spine & Interface Freeze)
-Plan: 4 of 6 complete (00-01, 00-02, 00-03, 00-04); next = 00-05 (Wave 3, edge functions)
-Status: In progress — Waves 1+2 done; schema frozen on live VPS; ready for Wave 3
-Last activity: 2026-05-31 — 00-01 smoke ran on live VPS (pg_uuidv7 unavailable → uuidv7 npm fallback); 00-03 froze 18-table schema on VPS (RLS 18/18, realtime publication, drizzle-kit pull → src/db, typecheck green). DB reached via ssh key id_ed25519_hostinger + docker exec / -L tunnel.
+Plan: 5 of 6 complete (00-01..00-05); 00-06 CODE complete, exit-gate verification pending
+Status: Phase-0 CODE COMPLETE & statically green (webapp tsc, hermes tsc, Vitest 37/37, i18n parity, UJ-002 spec parses). TWO live gates remain: (1) UJ-002 Playwright run vs local Supabase CLI stack (needs Docker+supabase start) or CI, (2) BLOCKING real-device Telegram checkpoint (Hermes deployed on VPS + real bot webhook).
+Last activity: 2026-05-31 — 00-05 froze the 13-endpoint edge contract + two-tier auth + Google-token module + magic-link (32 edge tests green); 00-06 authored Hermes skeleton + pairing UI + non-optimistic Realtime hook + UJ-002 E2E spec (all static gates green). DB via ssh key id_ed25519_hostinger.
 
-Progress: [██████░░░░] 67% (4/6 plans)
+Progress: [█████████░] 92% (5.5/6 plans — code complete, live exit-gate pending)
 
 ## Performance Metrics
 
