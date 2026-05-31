@@ -9,7 +9,10 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "db:migrate": "bash scripts/db-migrate.sh",
-    "i18n:check": "tsx scripts/i18n-check.ts"
+    "i18n:check": "tsx scripts/i18n-check.ts",
+    "i18n:unused": "tsx scripts/i18n-unused.ts",
+    "test": "vitest",
+    "test:run": "vitest run --coverage"
   },
   "dependencies": {
     "@react-email/components": "latest",
