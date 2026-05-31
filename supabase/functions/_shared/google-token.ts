@@ -83,7 +83,7 @@ export async function encryptRefreshToken(plaintext: string): Promise<string> {
   const key = await getMasterKey();
 
   // Generate a random 96-bit (12-byte) IV — required by AES-GCM
-  const iv = globalThis.crypto.getRandomValues(new Uint8Array(12));
+  const iv = globalThis.crypto.getRandomValues(new Uint8Array(12)) as Uint8Array;
 
   const encoder = new TextEncoder();
   const cipherBuffer = await globalThis.crypto.subtle.encrypt(
