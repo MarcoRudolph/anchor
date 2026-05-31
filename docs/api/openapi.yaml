@@ -1,0 +1,781 @@
+---
+description: "Anchor↔Hermes Edge Function API contract — 13 endpoints, two-tier auth (userJwt + hermes service-role+secret). FREEZE artifact."
+paths:
+  - "../../supabase/functions/_shared/contract.ts"
+  - "../../supabase/functions/_shared/auth.ts"
+---
+openapi: "3.1.0"
+
+info:
+  title: Anchor Edge Functions API
+  version: "1.0.0"
+  description: |
+    The Anchor backend API surface — 13 Supabase Edge Functions consumed identically
+    by the webapp and by the Hermes orchestrator. All endpoints are under /functions/v1/<name>.
+
+    Two authentication tiers:
+    - userJwt: Supabase user session JWT (RLS-scoped reads)
+    - hermes:  Supabase service-role JWT bearer + x-hermes-secret header (RLS bypassed, handler authz)
+
+servers:
+  - url: https://{supabaseHost}/functions/v1
+    variables:
+      supabaseHost:
+        default: localhost:54321
+        description: Self-hosted Supabase edge-function host (VPS loopback for Hermes)
+
+components:
+  securitySchemes:
+    userJwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        Supabase user session JWT obtained via magic-link sign-in (@supabase/ssr).
+        RLS policies on the DB scope reads to the authenticated user's anchor_user_id.
+
+    hermes:
+      type: apiKey
+      in: header
+      name: x-hermes-secret
+      description: |
+        Hermes service-role calls require BOTH:
+        1. Authorization: Bearer <service-role-jwt> (service-role JWT — not the user JWT)
+        2. x-hermes-secret: <shared-secret> header
+        Both must be valid. Missing either returns 403.
+
+  schemas:
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string
+
+    # ---- pairing-issue ----
+    PairingIssueRequest:
+      type: object
+      properties: {}
+      description: No request body; user identity comes from the session JWT.
+
+    PairingIssueResponse:
+      type: object
+      required: [code, expiresAt, deepLink]
+      properties:
+        code:
+          type: string
+          description: 8-char Crockford Base32 pairing code (0-9A-HJKMNP-TV-Z)
+          example: "A3K7MT2P"
+        expiresAt:
+          type: string
+          format: date-time
+          description: UTC expiry (15 minutes from issuance)
+        deepLink:
+          type: string
+          description: "t.me/<bot>?start=<code>"
+
+    # ---- pairing-redeem ----
+    PairingRedeemRequest:
+      type: object
+      required: [code, telegramUserId]
+      properties:
+        code:
+          type: string
+          description: 8-char Crockford Base32 code
+        telegramUserId:
+          type: integer
+          format: int64
+          description: Telegram user_id from the /start update
+        telegramUsername:
+          type: string
+          description: Telegram @username (optional, for display)
+
+    PairingRedeemResponse:
+      type: object
+      required: [ok]
+      properties:
+        ok:
+          type: boolean
+        anchorUserId:
+          type: string
+          format: uuid
+          description: Populated when ok=true
+        error:
+          type: string
+          description: "already_consumed | expired | not_found — when ok=false"
+
+    # ---- auth-resolve-telegram ----
+    AuthResolveTelegramRequest:
+      type: object
+      required: [telegramUserId]
+      properties:
+        telegramUserId:
+          type: integer
+          format: int64
+
+    AuthResolveTelegramResponse:
+      type: object
+      required: [anchorUserId]
+      properties:
+        anchorUserId:
+          type: string
+          format: uuid
+
+    # ---- turn-start ----
+    TurnStartRequest:
+      type: object
+      required: [anchorUserId, turnId, channel]
+      properties:
+        anchorUserId:
+          type: string
+          format: uuid
+        turnId:
+          type: string
+          format: uuid
+          description: Idempotency key for this turn
+        channel:
+          type: string
+          enum: [telegram, voice]
+
+    TurnStartResponse:
+      type: object
+      required: [ok, plan, dailyMinutesRemaining]
+      properties:
+        ok:
+          type: boolean
+        plan:
+          type: string
+          enum: [free, pro]
+        dailyMinutesRemaining:
+          type: number
+
+    # ---- turn-deliver ----
+    TurnDeliverRequest:
+      type: object
+      required: [anchorUserId, turnId, durationSeconds]
+      properties:
+        anchorUserId:
+          type: string
+          format: uuid
+        turnId:
+          type: string
+          format: uuid
+        durationSeconds:
+          type: number
+
+    TurnDeliverResponse:
+      type: object
+      required: [ok]
+      properties:
+        ok:
+          type: boolean
+
+    # ---- turn-fail ----
+    TurnFailRequest:
+      type: object
+      required: [anchorUserId, turnId, reason]
+      properties:
+        anchorUserId:
+          type: string
+          format: uuid
+        turnId:
+          type: string
+          format: uuid
+        reason:
+          type: string
+
+    TurnFailResponse:
+      type: object
+      required: [ok]
+      properties:
+        ok:
+          type: boolean
+
+    # ---- plan-state ----
+    PlanStateRequest:
+      type: object
+      properties: {}
+      description: User identity from JWT; no body required.
+
+    PlanStateResponse:
+      type: object
+      required: [plan, dailyMinutesRemaining, currentPeriodEnd]
+      properties:
+        plan:
+          type: string
+          enum: [free, pro]
+        dailyMinutesRemaining:
+          type: number
+        currentPeriodEnd:
+          type: string
+          format: date-time
+          nullable: true
+
+    # ---- calendar-list ----
+    CalendarListRequest:
+      type: object
+      properties:
+        from:
+          type: string
+          format: date-time
+        to:
+          type: string
+          format: date-time
+
+    CalendarListResponse:
+      type: object
+      required: [events]
+      properties:
+        events:
+          type: array
+          items:
+            type: object
+            required: [id, summary, startsAt, endsAt]
+            properties:
+              id:
+                type: string
+              summary:
+                type: string
+              startsAt:
+                type: string
+                format: date-time
+              endsAt:
+                type: string
+                format: date-time
+              location:
+                type: string
+                nullable: true
+
+    # ---- calendar-add ----
+    CalendarAddRequest:
+      type: object
+      required: [anchorUserId, summary, startsAt, endsAt]
+      properties:
+        anchorUserId:
+          type: string
+          format: uuid
+        summary:
+          type: string
+        startsAt:
+          type: string
+          format: date-time
+        endsAt:
+          type: string
+          format: date-time
+        location:
+          type: string
+        description:
+          type: string
+
+    CalendarAddResponse:
+      type: object
+      required: [ok, eventId]
+      properties:
+        ok:
+          type: boolean
+        eventId:
+          type: string
+
+    # ---- memory-recall ----
+    MemoryRecallRequest:
+      type: object
+      required: [query]
+      properties:
+        query:
+          type: string
+        limit:
+          type: integer
+          default: 10
+
+    MemoryRecallResponse:
+      type: object
+      required: [results]
+      properties:
+        results:
+          type: array
+          items:
+            type: object
+            required: [id, excerpt, score]
+            properties:
+              id:
+                type: string
+                format: uuid
+              excerpt:
+                type: string
+              score:
+                type: number
+              occurredAt:
+                type: string
+                format: date-time
+
+    # ---- memory-store ----
+    MemoryStoreRequest:
+      type: object
+      required: [anchorUserId, content, factType]
+      properties:
+        anchorUserId:
+          type: string
+          format: uuid
+        content:
+          type: string
+        factType:
+          type: string
+        sourceEvidenceId:
+          type: string
+          format: uuid
+          nullable: true
+
+    MemoryStoreResponse:
+      type: object
+      required: [ok, id]
+      properties:
+        ok:
+          type: boolean
+        id:
+          type: string
+          format: uuid
+
+    # ---- diary-append ----
+    DiaryAppendRequest:
+      type: object
+      required: [anchorUserId, body]
+      properties:
+        anchorUserId:
+          type: string
+          format: uuid
+        body:
+          type: string
+        title:
+          type: string
+          nullable: true
+        entryDate:
+          type: string
+          format: date
+
+    DiaryAppendResponse:
+      type: object
+      required: [ok, id]
+      properties:
+        ok:
+          type: boolean
+        id:
+          type: string
+          format: uuid
+
+    # ---- hermes-cache-invalidate ----
+    HermesCacheInvalidateRequest:
+      type: object
+      required: [anchorUserId, reason]
+      properties:
+        anchorUserId:
+          type: string
+          format: uuid
+        reason:
+          type: string
+          enum: [plan_changed, subscription_deleted]
+
+    HermesCacheInvalidateResponse:
+      type: object
+      required: [ok]
+      properties:
+        ok:
+          type: boolean
+
+paths:
+  # ---- USER-TIER endpoints ----
+
+  /pairing-issue:
+    post:
+      operationId: pairingIssue
+      summary: Issue a new one-time pairing code (user-tier)
+      description: |
+        Issues an 8-char Crockford Base32 pairing code bound to the authenticated user.
+        Rate-limited to 5 per hour per account (enforced in handler).
+        Returns the code + deep link for display in the webapp.
+      security:
+        - userJwt: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PairingIssueRequest"
+      responses:
+        "200":
+          description: Pairing code issued
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PairingIssueResponse"
+        "401":
+          description: Missing or invalid user JWT
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "429":
+          description: Rate limit exceeded (5/hr)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /plan-state:
+    post:
+      operationId: planState
+      summary: Get current plan state for the authenticated user (user-tier)
+      description: |
+        Returns the user's current plan (free/pro), remaining daily minutes, and subscription end date.
+        Hermes caches this with a 30s TTL; hermes-cache-invalidate flushes it on plan changes.
+      security:
+        - userJwt: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlanStateRequest"
+      responses:
+        "200":
+          description: Plan state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlanStateResponse"
+        "401":
+          description: Missing or invalid user JWT
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /calendar-list:
+    post:
+      operationId: calendarList
+      summary: List calendar events for the authenticated user (user-tier)
+      description: |
+        Returns upcoming calendar events in the given time range.
+        Requires a connected Google Calendar (google_connection.connection_state = connected).
+      security:
+        - userJwt: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CalendarListRequest"
+      responses:
+        "200":
+          description: Calendar events
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CalendarListResponse"
+        "401":
+          description: Missing or invalid user JWT
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /memory-recall:
+    post:
+      operationId: memoryRecall
+      summary: Semantic memory recall for the authenticated user (user-tier)
+      description: |
+        Executes a semantic search over the user's memory index.
+        Returns ranked excerpts with relevance scores.
+      security:
+        - userJwt: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MemoryRecallRequest"
+      responses:
+        "200":
+          description: Memory recall results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MemoryRecallResponse"
+        "401":
+          description: Missing or invalid user JWT
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  # ---- HERMES-TIER endpoints ----
+
+  /pairing-redeem:
+    post:
+      operationId: pairingRedeem
+      summary: Redeem a pairing code (Hermes-tier only)
+      description: |
+        Called by Hermes when a Telegram user sends /start <code>.
+        Atomically burns the pairing code (UPDATE...WHERE consumed_at IS NULL AND expires_at>now())
+        and binds the telegram_user_id to the anchor_user row.
+        A code can only be redeemed once; double-redeem returns ok=false.
+      security:
+        - hermes: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PairingRedeemRequest"
+      responses:
+        "200":
+          description: Redemption result (ok=true on success, ok=false on already_consumed/expired/not_found)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PairingRedeemResponse"
+        "403":
+          description: Missing or invalid hermes credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /auth-resolve-telegram:
+    post:
+      operationId: authResolveTelegram
+      summary: Resolve a Telegram user_id to an anchor_user_id (Hermes-tier only)
+      description: |
+        Called by Hermes to look up the anchor_user_id for a paired Telegram user.
+        Returns 404 if the Telegram user is not paired.
+      security:
+        - hermes: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthResolveTelegramRequest"
+      responses:
+        "200":
+          description: Resolved anchor user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResolveTelegramResponse"
+        "403":
+          description: Missing or invalid hermes credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Telegram user not paired
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /turn-start:
+    post:
+      operationId: turnStart
+      summary: Start a conversation turn (Hermes-tier only)
+      description: |
+        Called by Hermes at the start of each conversation turn.
+        Checks plan state and daily minute budget; returns remaining minutes.
+        turnId is an idempotency key — a retry with the same turnId is a no-op.
+      security:
+        - hermes: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TurnStartRequest"
+      responses:
+        "200":
+          description: Turn authorized with plan state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TurnStartResponse"
+        "403":
+          description: Missing or invalid hermes credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /turn-deliver:
+    post:
+      operationId: turnDeliver
+      summary: Record a completed conversation turn (Hermes-tier only)
+      description: |
+        Called by Hermes after a turn completes. Records duration for billing.
+        Idempotent on turnId — retries with the same id do not double-count minutes.
+      security:
+        - hermes: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TurnDeliverRequest"
+      responses:
+        "200":
+          description: Turn recorded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TurnDeliverResponse"
+        "403":
+          description: Missing or invalid hermes credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /turn-fail:
+    post:
+      operationId: turnFail
+      summary: Record a failed conversation turn (Hermes-tier only)
+      description: |
+        Called by Hermes when a turn fails (error, timeout, etc.).
+        Does not decrement minute budget. Logs the failure reason.
+      security:
+        - hermes: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TurnFailRequest"
+      responses:
+        "200":
+          description: Failure recorded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TurnFailResponse"
+        "403":
+          description: Missing or invalid hermes credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /calendar-add:
+    post:
+      operationId: calendarAdd
+      summary: Add a calendar event (Hermes-tier only)
+      description: |
+        Called by Hermes to write a Calendar Addition on behalf of the user.
+        Requires google_connection.connection_state = connected for the anchor_user.
+        Buffers as a Pending Calendar Addition if the connection is disconnected_external.
+      security:
+        - hermes: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CalendarAddRequest"
+      responses:
+        "200":
+          description: Calendar event added
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CalendarAddResponse"
+        "403":
+          description: Missing or invalid hermes credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /memory-store:
+    post:
+      operationId: memoryStore
+      summary: Store a memory fact (Hermes-tier only)
+      description: |
+        Called by Hermes after extracting a memory fact from a conversation.
+        Writes to memory_fact and triggers embedding generation (Phase 2).
+      security:
+        - hermes: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MemoryStoreRequest"
+      responses:
+        "200":
+          description: Memory fact stored
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MemoryStoreResponse"
+        "403":
+          description: Missing or invalid hermes credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /diary-append:
+    post:
+      operationId: diaryAppend
+      summary: Append a diary entry (Hermes-tier only)
+      description: |
+        Called by Hermes to write a diary entry extracted from a conversation.
+        Writes to diary_entry with FTS indexing.
+      security:
+        - hermes: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DiaryAppendRequest"
+      responses:
+        "200":
+          description: Diary entry written
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DiaryAppendResponse"
+        "403":
+          description: Missing or invalid hermes credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /hermes-cache-invalidate:
+    post:
+      operationId: hermesCacheInvalidate
+      summary: Invalidate Hermes plan-state cache for a user (Hermes-tier only)
+      description: |
+        Called by the Stripe webhook handler when a subscription changes.
+        Forwards the invalidation to Hermes so it flushes its 30s plan-state TTL cache.
+      security:
+        - hermes: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HermesCacheInvalidateRequest"
+      responses:
+        "200":
+          description: Cache invalidated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HermesCacheInvalidateResponse"
+        "403":
+          description: Missing or invalid hermes credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
