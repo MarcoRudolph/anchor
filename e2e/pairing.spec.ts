@@ -116,24 +116,8 @@ test.describe('UJ-002: Telegram Pairing Journey', () => {
         { onConflict: 'id' },
       );
 
-      // Sign in the browser via Supabase auth token exchange
-      // Use the admin API to get a session token, then set it in the browser
-      const { data: sessionData, error: sessionError } =
-        await admin.auth.admin.getUserById(userId);
-
-      if (sessionError || !sessionData.user) {
-        throw new Error(`Failed to load test user session: ${sessionError?.message}`);
-      }
-
-      // Navigate to the pair page and inject a session cookie via API route
-      // For the test, we set the auth cookie directly using the Supabase session
-      const anon = createClient(SUPABASE_URL, process.env.SUPABASE_ANON_KEY ?? 'anon-key');
-      const { data: otpData, error: otpError } = await (anon as ReturnType<typeof createClient>).auth.admin
-        ? admin.auth.admin.generateLink({ type: 'magiclink', email })
-        : Promise.resolve({ data: null, error: new Error('no admin') });
-
-      // Fallback: inject session via page.addInitScript if OTP generation is available
-      // In the ephemeral stack, we use signInWithPassword which the test admin created
+      // Sign in with password (the test user was created with a known password above)
+      // to obtain a real session token we can inject into the browser.
       const anonClient = createClient(SUPABASE_URL, process.env.SUPABASE_ANON_KEY ?? 'anon-key', {
         auth: { persistSession: false },
       });
