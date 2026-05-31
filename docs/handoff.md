@@ -13,9 +13,9 @@ against the real Hostinger VPS self-hosted Supabase Postgres. Plan 00-03 (schema
 MUST NOT start until all fields below are filled in — the frozen DDL depends on knowing
 which extensions are available and which UUIDv7 strategy to use.
 
-**Run date:** <!-- fill in: YYYY-MM-DD -->
-**Run by:** <!-- fill in: operator name or "automated via scripts/db-migrate.sh" -->
-**VPS:** Hostinger VPS — self-hosted Supabase docker-compose stack
+**Run date:** 2026-05-31
+**Run by:** automated — Claude orchestrator via `ssh root@76.13.157.62` → `docker exec -i supabase-anchor-db psql -U postgres` (DB ports 5436/6547 are localhost-bound on the VPS, not internet-reachable; tunnel/SSH required)
+**VPS:** Hostinger VPS `srv1677122` — self-hosted Supabase docker-compose stack; DB container `supabase-anchor-db`, image `supabase/postgres:15.8.1.085` (Postgres 15)
 
 ---
 
@@ -44,11 +44,11 @@ Fill in after running the smoke migration. Status: `installed` | `failed` | `not
 
 | Extension | Status | Notes |
 |-----------|--------|-------|
-| `pgcrypto` | <!-- installed / failed --> | Required for refresh-token envelope encryption (DEC-0008) |
-| `pg_uuidv7` | <!-- installed / failed --> | Required for `uuid_generate_v7()` PK default (DEC-0013); fallback: uuidv7 npm |
-| `pg_cron` | <!-- installed / failed --> | Required for scheduled jobs → edge functions (DEC-0019) |
-| `pg_net` | <!-- installed / failed --> | Required for `net.http_post` from cron jobs (DEC-0019) |
-| `vector` | <!-- installed / failed --> | Required for memory embeddings column type (DEC-0004, Phase 2) |
+| `pgcrypto` | **installed** | Already present. `gen_random_uuid()` available → used as safety-net PK default (DEC-0008) |
+| `pg_uuidv7` | **failed** | `extension "pg_uuidv7" is not available` — NOT in the supabase/postgres:15.8.1 image; no control file. `uuid_generate_v7()` confirmed undefined. → **uuidv7 npm fallback** (DEC-0013) |
+| `pg_cron` | **installed** | Available for scheduled jobs → edge functions (DEC-0019) |
+| `pg_net` | **installed** | Already present. `net.http_post` available for cron→edge calls (DEC-0019) |
+| `vector` | **installed** | pgvector available → memory embeddings column type can be frozen now (DEC-0004, Phase 2) |
 
 ---
 
@@ -57,17 +57,22 @@ Fill in after running the smoke migration. Status: `installed` | `failed` | `not
 Plan 00-03 freezes the schema with UUIDv7 primary keys. The column default depends
 on the outcome of the smoke above.
 
-**Chosen strategy (circle one and delete the other):**
+**Chosen strategy:** ✅ **`uuidv7` npm fallback (1.2.1)**
 
-- [ ] **`pg_uuidv7` extension** — `uuid_generate_v7()` is available server-side.
-  Column defaults will use `DEFAULT uuid_generate_v7()`.
+- [ ] ~~**`pg_uuidv7` extension** — `uuid_generate_v7()` available server-side.~~ NOT AVAILABLE on this VPS.
 
-- [ ] **`uuidv7` npm fallback (1.2.1)** — `pg_uuidv7` could not be installed on this VPS image.
-  IDs are generated app-side (Edge Functions + webapp) before insert. Column defaults
-  will use `DEFAULT gen_random_uuid()` as a safety net only; app always supplies the ID.
+- [x] **`uuidv7` npm fallback (1.2.1)** — `pg_uuidv7` is not available on the `supabase/postgres:15.8.1` image.
+  IDs are generated app-side (Edge Functions + webapp) before insert via the `uuidv7` npm package.
+  Column defaults use `DEFAULT gen_random_uuid()` (pgcrypto, installed) as a safety net only;
+  the application always supplies the time-ordered v7 ID on insert. Drizzle: `.$defaultFn(() => uuidv7())`.
 
-**Rationale / notes:** <!-- e.g., "pg_uuidv7 requires OS-level install; tried apt-get install
-postgresql-16-pg-uuidv7 but package not available in the VPS image" -->
+**Rationale / notes:** Smoke run 2026-05-31 against `supabase-anchor-db` returned
+`extension "pg_uuidv7" is not available` (no control file in the image) and the
+`uuid_generate_v7()` probe confirmed the function is undefined. The Supabase self-hosted
+Postgres image does not bundle pg_uuidv7. Per DEC-0013 / Assumption A5 the documented
+fallback is the `uuidv7` 1.2.1 npm package generating IDs app-side. **Plan 00-03 MUST NOT
+emit `DEFAULT uuid_generate_v7()` on any column** — use `DEFAULT gen_random_uuid()` and
+app-supplied v7 IDs.
 
 ---
 
@@ -77,9 +82,11 @@ The smoke migration creates a throwaway `_rt_smoke` table, sets `REPLICA IDENTIT
 adds it to `supabase_realtime`, then drops it. If the probe ran without error, the
 `supabase_realtime` publication exists and the Realtime container is configured correctly.
 
-**Probe result:** <!-- PASSED / FAILED -->
+**Probe result:** PASSED
 
-**Notes:** <!-- any errors, container log lines, or follow-up actions -->
+**Notes:** The `supabase_realtime` publication exists; a throwaway table with `REPLICA IDENTITY FULL`
+was added to and dropped from it without error, then dropped. Realtime is usable for the UJ-002
+pairing "connected" confirmation (plan 00-06). No residue left.
 
 If the probe failed, check:
 1. The `supabase_realtime` publication exists: `SELECT * FROM pg_publication WHERE pubname = 'supabase_realtime';`
