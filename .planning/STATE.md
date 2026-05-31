@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-05-30)
 ## Current Position
 
 Phase: 0 of 4 (Spine & Interface Freeze)
-Plan: 0 of TBD in current phase
-Status: Ready to plan
-Last activity: 2026-05-30 — Roadmap bootstrapped from /gsd-ingest-docs (49 docs, 22 ADRs); PROJECT/REQUIREMENTS/ROADMAP/STATE written
+Plan: 2 of 6 complete (00-02, 00-04); 00-01 paused at blocking VPS checkpoint
+Status: In progress — PAUSED at 00-01 human-action checkpoint (needs live VPS DATABASE_URL)
+Last activity: 2026-05-31 — Executed autonomous Wave-1/2 plans: 00-02 Next 16 scaffold (builds clean on 16.2.6) + 00-04 CI gates (Vitest 5/5, i18n parity green); 00-01 Task 1 (psql runner + extensions/realtime smoke migration) committed (fff9f75), Task 2 awaiting real VPS Postgres
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [███░░░░░░░] 33% (2/6 plans)
 
 ## Performance Metrics
 
@@ -78,6 +78,6 @@ Items acknowledged and carried forward (v2 / later):
 
 ## Session Continuity
 
-Last session: 2026-05-30 11:35
-Stopped at: Wrote PROJECT.md, REQUIREMENTS.md, ROADMAP.md, STATE.md from /gsd-ingest-docs intel
-Resume file: None
+Last session: 2026-05-31 — executed Phase 0 autonomous plans
+Stopped at: 00-01 blocking human-action checkpoint — apply `scripts/db-migrate.sh` (0000_extensions_smoke.sql) against the real Hostinger VPS Supabase Postgres, record results in docs/handoff.md, then resume with "extensions verified" + uuidv7 strategy. Unblocks 00-03 → 00-05 → 00-06.
+Resume file: None (resume signal documented in this checkpoint)
