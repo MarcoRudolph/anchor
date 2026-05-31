@@ -37,6 +37,8 @@
   ],
   "exclude": [
     "node_modules",
-    "drizzle"
+    "drizzle",
+    "supabase/functions",
+    "tests/edge"
   ]
 }
