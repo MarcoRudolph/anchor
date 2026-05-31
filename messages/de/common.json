@@ -1,0 +1,22 @@
+{
+  "appShell": {
+    "tagline": "Dein persönlicher Gedächtnisassistent",
+    "localeSwitch": {
+      "de": "Deutsch",
+      "en": "English"
+    },
+    "nav": {
+      "home": "Start",
+      "settings": "Einstellungen",
+      "billing": "Abonnement"
+    }
+  },
+  "onboarding": {
+    "headline": "Willkommen bei Anchor",
+    "subline": "Verbinde dein Telegram-Konto, um loszulegen."
+  },
+  "errors": {
+    "notFound": "Seite nicht gefunden",
+    "serverError": "Ein Fehler ist aufgetreten. Bitte versuche es erneut."
+  }
+}

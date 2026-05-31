@@ -1,0 +1,22 @@
+{
+  "appShell": {
+    "tagline": "Your personal memory companion",
+    "localeSwitch": {
+      "de": "Deutsch",
+      "en": "English"
+    },
+    "nav": {
+      "home": "Home",
+      "settings": "Settings",
+      "billing": "Subscription"
+    }
+  },
+  "onboarding": {
+    "headline": "Welcome to Anchor",
+    "subline": "Connect your Telegram account to get started."
+  },
+  "errors": {
+    "notFound": "Page not found",
+    "serverError": "Something went wrong. Please try again."
+  }
+}
